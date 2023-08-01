@@ -5,7 +5,9 @@
 
   const Navigation = () => {
     const navigate = useNavigate()
-    const token = localStorage.getItem("token")    
+    const token = localStorage.getItem("token")
+    const firstName = localStorage.getItem("firstName")    
+    const lastName = localStorage.getItem("lastName")
     console.log(token);
 
     useEffect(() => {
@@ -17,6 +19,9 @@
 
     const handleLogout = () => {
       localStorage.removeItem("token")
+      localStorage.removeItem("id")
+      localStorage.removeItem("firstName")
+      localStorage.removeItem("lastName")
       navigate("/login")     
     }
     
@@ -26,8 +31,15 @@
       <>
         <div className="container flex mx-auto px-20 pt-10 justify-between items-center" >    
           <Link to="/" className='font-sans font-bold text-lg'>hrPorto</Link>   
-          <div className='flex'>      
-          <Link to="/candidateDashboard"className='font-sans text-sm'>Career</Link> 
+          <div className='flex'>
+          {token? 
+          <>
+          <p className='font-sans text-sm'>Welcome</p>
+          <p className='font-sans text-sm ml-2 font-bold'>{firstName} {lastName}</p>
+          </>
+          : null }             
+          
+          <Link to="/candidateDashboard"className='font-sans text-sm ml-10'>Career</Link> 
           {token ?         
           (<button onClick={handleLogout} className='font-sans text-sm ml-10'>Logout</button>)
           :

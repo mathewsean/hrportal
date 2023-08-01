@@ -1,18 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from '../../Services/axiosInterceptor'
+import {Link} from 'react-router-dom'
 
 function JobCard() {
-  return (  
-      <button className='flex-col w-96 h-96 bg-slate-200 rounded-2xl shadow-md'>
-        <p className='font-sans text-2xl font-bold mx-10 mt-7 text-left'> 
-          Job Title
-        </p>
-        <p className='font-sans font-bold mx-10 mt-2 text-left'>
-          Location
-        </p>
-        <p className='font-sans mx-10 mt-2 text-left'>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-        </p>
-      </button>  
+
+  const [jobVacancyList, setjobVacancyList] = useState([])
+  console.log(jobVacancyList, "WELL ");
+
+  useEffect(() => {
+
+    async function getJobList() {
+      try {
+        const res = await axios.get('/getJobList')
+        setjobVacancyList(res.data.getJobList)
+        console.log(res.data.getJobList);
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getJobList()
+
+  }, [])
+
+  
+  return (
+    <ul>
+      <div className='container mx-16 pt-10 '>
+        <div className='grid grid-cols-3 gap-y-5'>
+
+          {jobVacancyList.map(job => (
+
+            <li key={job._id}>
+
+              <Link to={`/jobs/${job._id}`}>
+              <button className='flex-col w-96 h-96 bg-slate-200 rounded-2xl shadow-md'>
+                <p className='font-sans text-2xl font-bold mx-10 mt-7 text-left'>
+                  {job.jobTitle}
+                </p>
+                <p className='font-sans font-bold mx-10 mt-2 text-left'>
+                  {job.location}
+                </p>
+                <p className='font-sans mx-10 mt-2 text-left'>
+                  {job.jobDescription}
+                </p>
+              </button> 
+              </Link>
+
+            </li>
+
+          ))} 
+
+        </div>
+      </div >
+    </ul>
   )
 }
 

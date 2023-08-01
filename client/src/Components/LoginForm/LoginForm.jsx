@@ -21,7 +21,11 @@ function LoginForm() {
       console.log(res.data);
 
       if(res.status == 200){        
-        localStorage.setItem('token', res.data.token)        
+        localStorage.setItem('token', res.data.token)     
+        localStorage.setItem('id', res.data.id)  
+        localStorage.setItem('firstName', res.data.firstName)
+        localStorage.setItem('lastName', res.data.lastName)
+        
         setIsVerified(true)
       } else {
         setIsVerified(false)
