@@ -73,7 +73,7 @@ export const jobApply = async(req, res) => {
   }
 }  
 
-
+//To get the List of Job Vacancies in the company to display it in the dashboard of candidate
 export const findJobVacancyList = async(req,res) => {
   try {
 
@@ -92,6 +92,7 @@ export const findJobVacancyList = async(req,res) => {
 
 }
 
+//To get full details of a job displayed in the dashboard of candidate
 export const findJobDetails = async(req,res) => {
   try {
     const {id} = req.params
@@ -109,6 +110,7 @@ export const findJobDetails = async(req,res) => {
   }
 }
 
+// To check whether the candidate already applied or not to a job vancies listed in his account
 export const findJobAppliedStatus = async(req,res) => {
   try {
 
@@ -116,12 +118,15 @@ export const findJobAppliedStatus = async(req,res) => {
 
     const findStatus = await JobApplied.findOne({jobId:jobId})
 
-    console.log(findStatus);
+    if(findStatus){
 
-    // if(findStatus){
-      
-    // }
-    
+      const isCandidateApplied = findStatus.jobAppliedCandidateId.includes(candidateId)     
+      res.status(200).json({isCandidateApplied}) 
+ 
+    } else {
+      res.status(404).json({message: "JobId is not found"})
+    }
+
   } catch (error) {
     res.status(500).json({error:error.message})
   }

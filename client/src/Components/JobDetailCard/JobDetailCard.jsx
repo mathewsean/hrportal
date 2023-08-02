@@ -32,15 +32,23 @@ function JobDetailCard() {
   useEffect(() => {
     async function jobAppliedStatus() {
       try {
-        const res = await axios.get(`/JobAppliedStatus/${id}`)
+        const res = await axios.get(`/JobAppliedStatus`, {
+          params:{
+            jobId: id,
+            candidateId: candidateId
+          }
+        })
         console.log(res.data);
+        setJobApplied(res.data.isCandidateApplied)
 
       } catch (error) {
         console.error(error)
       }
     }
 
-  }, [])
+    jobAppliedStatus()
+
+  }, [id, candidateId])
 
 
 
@@ -51,8 +59,9 @@ function JobDetailCard() {
         candidateId
       }
 
-      if (jobApplied === false) {
+      if (!jobApplied) {
         const applyJob = await axios.post('/jobApply', jobApplyCredentials)
+        window.location.reload();
       }
 
     } catch (error) {
@@ -71,7 +80,7 @@ function JobDetailCard() {
         ) : (
           <p className='font-sans text-2xl font-bold mx-10 mt-7 text-left'>Loading...</p>
         )}
-        <button onClick={handleApplyNow} className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-7 mx-10 rounded-md'>
+        <button onClick={handleApplyNow} className='w-96 h-10 bg-cyan-300 text-lg font-semibold text-black mt-7 mx-10 rounded-md'>
           {jobApplied ? 'Applied' : 'Apply Now'}
 
         </button>

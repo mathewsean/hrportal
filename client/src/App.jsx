@@ -8,6 +8,7 @@ import JobDetails from './Pages/JobDetails/JobDetails'
 import CandidateProfile from './Pages/CandidateProfile/CandidateProfile'
 import RegisterCandidate from './Pages/RegisterCandidate/RegisterCandidate'
 import VerifyOTP from './Pages/VerifyOTPPage/VerifyOTPPage'
+import AdminLogin from './Pages/AdminLogin/AdminLogin'
 
 
 function App() {  
@@ -23,6 +24,7 @@ function App() {
       <Route path="/candidateDashboard" element={<DashboardCandidate/>} />
       <Route path="/jobs/:id" element={<JobDetails/>} />
       <Route path="/candidate_account" element={<CandidateProfile/>} />
+      <Route path="/admin_login" element={<AdminLogin/>} />
     </Routes>
     </BrowserRouter>   
     </>
