@@ -5,9 +5,9 @@
 
   const AdminNavigation = () => {
     const navigate = useNavigate()
-    const token = localStorage.getItem("token")
-    const firstName = localStorage.getItem("firstName")    
-    const lastName = localStorage.getItem("lastName")
+    const token = localStorage.getItem("adminToken")
+    const firstName = localStorage.getItem("adminFirstName")    
+    const lastName = localStorage.getItem("adminLastName")
     console.log(token);
 
     useEffect(() => {
@@ -18,11 +18,11 @@
     },[])
 
     const handleLogout = () => {
-      localStorage.removeItem("token")
-      localStorage.removeItem("id")
-      localStorage.removeItem("firstName")
-      localStorage.removeItem("lastName")
-      navigate("/login")     
+      localStorage.removeItem("adminToken")
+      localStorage.removeItem("adminId")
+      localStorage.removeItem("adminFirstName")
+      localStorage.removeItem("adminLastName")
+      navigate("/admin_login")     
     }
     
 
@@ -30,20 +30,19 @@
     return (
       <>
         <div className="container flex mx-auto px-20 pt-10 justify-between items-center" >    
-          <Link to="/" className='font-sans font-bold text-lg'>hrPorto</Link>   
+          <Link to="/admin_login" className='font-sans font-bold text-lg'>hrPorto</Link>   
           <div className='flex'>
           {token? 
           <>
           <p className='font-sans text-sm'>Welcome</p>
           <p className='font-sans text-sm ml-2 font-bold'>{firstName} {lastName}</p>
           </>
-          : null }             
+          : null }           
           
-          <Link to="/candidateDashboard"className='font-sans text-sm ml-10'>Career</Link> 
           {token ?         
           (<button onClick={handleLogout} className='font-sans text-sm ml-10'>Logout</button>)
           :
-          (<Link to="/login" className='font-sans text-sm ml-10'>Login</Link>)}         
+          (<Link to="/admin_login" className='font-sans text-sm ml-10'>Login</Link>)}         
           </div>
         </div> 
       </>

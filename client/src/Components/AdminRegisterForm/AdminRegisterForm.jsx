@@ -15,7 +15,7 @@ function AdminRegisterForm() {
   const handleRegistration = async (e) => {
     e.preventDefault()
 
-    const candidateData = {
+    const adminData = {
       firstName: firstName,
       lastName: lastName,
       emailId: emailId,
@@ -23,7 +23,7 @@ function AdminRegisterForm() {
     }
 
     try {
-      const res = await axios.post("/register", candidateData)
+      const res = await axios.post("/admin/admin_register", adminData)
       console.log(res.data);
 
       if(res.status == 200){
@@ -38,7 +38,7 @@ function AdminRegisterForm() {
   }
 
   if (isVerified) {
-    return <Navigate to="/verify_Otp" />;
+    return <Navigate to="/admin_verify_otp" />;
   }
 
   
@@ -49,7 +49,7 @@ function AdminRegisterForm() {
     <div className='flex justify-center items-center h-screen '>
       <div className='flex flex-col items-center w-2/4 h-3/5 bg-slate-200 rounded-3xl'>
         <form onSubmit={handleRegistration} className='flex flex-col items-center'>
-          <label className='font-sans text-black text-3xl font-bold mt-10'>Register</label>
+          <label className='font-sans text-black text-3xl font-bold mt-10'>Admin Register</label>
 
           <input type="text"
             className='w-96 h-10 bg-white font-sans text-black mt-5 rounded-md shadow-lg'

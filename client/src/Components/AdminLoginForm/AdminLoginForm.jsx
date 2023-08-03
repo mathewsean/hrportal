@@ -17,14 +17,14 @@ function AdminLoginForm() {
     }
 
     try {
-      const res = await axios.post('/adminlogin', adminCredential)
+      const res = await axios.post('/admin/adminlogin', adminCredential)
       console.log(res.data);
 
       if (res.status == 200) {
-        localStorage.setItem('token', res.data.token)
-        localStorage.setItem('id', res.data.id)
-        localStorage.setItem('firstName', res.data.firstName)
-        localStorage.setItem('lastName', res.data.lastName)
+        localStorage.setItem('adminToken', res.data.adminToken)
+        localStorage.setItem('adminId', res.data.adminId)
+        localStorage.setItem('adminFirstName', res.data.adminFirstName)
+        localStorage.setItem('adminLastName', res.data.adminLastName)
 
         setIsVerified(true)
       } else {
@@ -38,7 +38,7 @@ function AdminLoginForm() {
   }
 
   if (isVerified) {
-    return <Navigate to="/candidateDashboard" />
+    return <Navigate to="/adminDashboard" />
   }
 
 
@@ -67,7 +67,7 @@ function AdminLoginForm() {
           </button>
 
         </form>
-        <Link to='/register'>Click to Register</Link>
+        <Link to='/admin_register'>Click to Register</Link>
       </div>
     </>
   )

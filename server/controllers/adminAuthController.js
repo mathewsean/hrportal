@@ -111,10 +111,10 @@ export const adminLogin = async(req, res) => {
       
       return res.status(200).json({
         message:"Logged In Successfully", 
-        token, 
+        adminToken, 
         adminId:admin._id, 
-        firstName:admin.firstName, 
-        lastName:admin.lastName
+        adminFirstName:admin.firstName, 
+        adminLastName:admin.lastName
       })
     } else {
       return res.status(400).json({message:"Invalid Password"})
