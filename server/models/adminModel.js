@@ -26,10 +26,6 @@ const adminSchema = mongoose.Schema({
     type: String,
     
   },
-  isOtpVerified:{
-    type: Boolean,
-    default: false
-  },
   isEmailVerified:{
     type: Boolean,
     default: false

@@ -11,9 +11,9 @@ export const registerCandidate = async(req,res) => {
   try {
 
     const { firstName, lastName, emailId, password } = req.body
-    const existingEmail = await Candidate.findOne({emailId:emailId})
+    const existingCandidate = await Candidate.findOne({emailId:emailId})
 
-    if(!existingEmail){
+    if(!existingCandidate){
       const otp = otpGenerator.generate(6,{lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false}) 
       const genSalt = await bycrptjs.genSalt(10)
       const hashPassword = await bycrptjs.hash(password, genSalt)      

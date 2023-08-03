@@ -12,14 +12,14 @@ export const registerAdmin = async (req, res) => {
   try {
 
     const { firstName, lastName, emailId, password } = req.body
-    const findExistingEmail = Admin.findOne({ emailId:emailId })
+    const existingAdmin = await Admin.findOne({ emailId:emailId })
 
-    if (!findExistingEmail) {
+    if (!existingAdmin) {
 
       const otp = otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false })
       const genSalt = await bycrptjs.genSalt(10)
       const hashPassword = await bycrptjs.hash(password, genSalt)
-
+      
       const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 587,
@@ -79,7 +79,7 @@ export const verifyOTPAdmin = async(req,res) => {
     }
 
     if(findOTP.otp === otp && (Date.now() - findOTP.otpCreatedAt < 5 * 60 * 1000)){
-      await Admin.findOneAndUpdate({emailId:emailId}, {isOtpVerified:true})
+      await Admin.findOneAndUpdate({emailId:emailId}, {isEmailVerified:true})
       return res.status(200).json({message: "OTP Verified Successfully. Please Login."})
     } else {
       return res.status(400).json({error: "Entered Invalid OTP. Please try again."})
@@ -103,16 +103,16 @@ export const adminLogin = async(req, res) => {
       return res.status(400).json({message:"Invaild Email"})
     }
 
-    const checkPassword = bycrptjs.compareSync(password, candidate.password)
+    const checkPassword = bycrptjs.compareSync(password, admin.password)
 
-    if(checkPassword){
+    if(checkPassword && admin.isEmailVerified && admin.isAuthorisedToBeAdmin){ 
       //Generate JWT token
       const token = jwt.sign({id:admin._id}, process.env.JWTSECRET) 
       
       return res.status(200).json({
         message:"Logged In Successfully", 
         token, 
-        id:admin._id, 
+        adminId:admin._id, 
         firstName:admin.firstName, 
         lastName:admin.lastName
       })
