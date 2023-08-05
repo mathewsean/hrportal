@@ -78,8 +78,7 @@ export const findJobVacancyList = async(req,res) => {
   try {
 
     const getJobList = await JobVacancy.find()
-    console.log(getJobList);
-
+    
     if(getJobList){
       res.status(200).json({getJobList})
     } else {

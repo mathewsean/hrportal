@@ -107,7 +107,7 @@ export const adminLogin = async(req, res) => {
 
     if(checkPassword && admin.isEmailVerified && admin.isAuthorisedToBeAdmin){ 
       //Generate JWT token
-      const token = jwt.sign({id:admin._id}, process.env.JWTSECRET) 
+      const adminToken = jwt.sign({id:admin._id}, process.env.JWTSECRET) 
       
       return res.status(200).json({
         message:"Logged In Successfully", 

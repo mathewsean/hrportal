@@ -30,7 +30,7 @@ export const updateEducation = async(req,res) => {
         {_id:candidateId},
         {$push:{ education: updateEducation._id}}
         )
-      console.log(updateEducation);
+      
       return res.status(200).json({message: "Education Field Added Successfully"}) 
   
     } else {
@@ -72,7 +72,7 @@ export const updateWorkExperience = async(req,res) => {
       {_id:candidateId},
       {$push:{ workExperience: updateWorkExperience._id}}
       )
-    console.log(WorkExperience);
+    
     return res.status(200).json({message: "Work Experience Field Added Successfully"}) 
 
   } else {

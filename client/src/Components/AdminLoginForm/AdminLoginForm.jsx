@@ -17,10 +17,10 @@ function AdminLoginForm() {
     }
 
     try {
-      const res = await axios.post('/admin/adminlogin', adminCredential)
+      const res = await axios.post('/admin/admin_login', adminCredential)
       console.log(res.data);
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         localStorage.setItem('adminToken', res.data.adminToken)
         localStorage.setItem('adminId', res.data.adminId)
         localStorage.setItem('adminFirstName', res.data.adminFirstName)
@@ -38,7 +38,7 @@ function AdminLoginForm() {
   }
 
   if (isVerified) {
-    return <Navigate to="/adminDashboard" />
+    return <Navigate to="/admin_dashboard" />
   }
 
 
