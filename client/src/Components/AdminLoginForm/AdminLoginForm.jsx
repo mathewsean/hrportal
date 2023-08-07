@@ -7,6 +7,7 @@ function AdminLoginForm() {
   const [emailId, setEmailId] = useState("")
   const [password, setPassword] = useState("")
   const [isVerified, setIsVerified] = useState(false)
+  const [message, setMessage] = useState("")
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -33,6 +34,12 @@ function AdminLoginForm() {
 
     } catch (error) {
       console.error(error)
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message;
+        setMessage(errorMessage);
+      } else {
+        setMessage("An error occurred");
+      } 
     }
 
   }
@@ -51,13 +58,13 @@ function AdminLoginForm() {
           <p className='font-sans text-black text-3xl font-bold mt-10'>Admin Sign In</p>
 
           <input type="text"
-            className='w-96 h-10 bg-white font-sans text-black mt-10 rounded-md shadow-lg'
+            className='px-2 w-96 h-10 bg-white font-sans text-black mt-10 rounded-md shadow-lg'
             name='emailId' value={emailId}
             onChange={(e) => setEmailId(e.target.value)}
             placeholder='  Enter Email' />
 
           <input type="password"
-            className='w-96 h-10 bg-white text-black mt-5 rounded-md shadow-lg'
+            className='px-2 w-96 h-10 bg-white text-black mt-5 rounded-md shadow-lg'
             name="password" value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder='  Enter Password' />
@@ -65,6 +72,8 @@ function AdminLoginForm() {
           <button className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-16 rounded-md'>
             Sign In
           </button>
+
+          {message && (<p className="block sm:inline text-red-700">{message}</p>)}
 
         </form>
         <Link to='/admin_register'>Click to Register</Link>

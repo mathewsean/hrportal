@@ -29,7 +29,7 @@ function RegisterForm() {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: initialValues,
     validationSchema: registerSchema,
-    onSubmit: (values) => {      
+    onSubmit: (values) => {
 
       async function handleRegistration() {
 
@@ -122,9 +122,9 @@ function RegisterForm() {
             </button>
           </form>
         </div>
-      </div>
+      </div> 
     </div>
   )
 }
 
-export default RegisterForm
+export default RegisterForm  
