@@ -13,7 +13,8 @@ import AdminRegister from './Pages/AdminRegister/AdminRegister'
 import AdminVerifyOtp from './Pages/AdminVerifyOtp/AdminVerifyOtp'
 import AdminDashboard from './Pages/AdminDashboard/AdminDashboard'
 import AdminJobVacancyPost from './Pages/AdminJobVacancyPost/AdminJobVacancyPost'
-
+import EducationProfile from './Pages/CandidateEducation/CandidateEducation'
+import CandidateWorkExpProfile from './Pages/CandidateWorkExpProfile/CandidateWorkExpProfile'
 
 
 function App() {  
@@ -29,13 +30,16 @@ function App() {
       <Route path="/candidateDashboard" element={<DashboardCandidate/>} />
       <Route path="/jobs/:id" element={<JobDetails/>} />
       <Route path="/candidate_account" element={<CandidateProfile/>} />
+      <Route path="/candidate_education" element={<EducationProfile/>} />
+      <Route path="/candidate_work_experience" element={<CandidateWorkExpProfile/>}/>
+      
       <Route path="/admin_login" element={<AdminLogin/>} />
       <Route path='/admin_register' element={<AdminRegister/>} />
       <Route path='/admin_verify_otp' element={<AdminVerifyOtp/>}  />
       <Route path='/admin_dashboard' element={<AdminDashboard />} />
       <Route path='/admin_job_post' element={<AdminJobVacancyPost/>} />
     </Routes>
-    </BrowserRouter>   
+    </BrowserRouter>     
     </>
   )
 }

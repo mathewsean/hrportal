@@ -13,7 +13,7 @@ function JobCard() {
       try {
         const res = await axios.get('/getJobList')
         setjobVacancyList(res.data.getJobList)
-        console.log(res.data.getJobList);
+        
 
       } catch (error) {
         console.error(error);

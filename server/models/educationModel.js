@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const educationSchema = mongoose.Schema({  
+  candidateId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Candidate'
+  },
   levelOfEducation:{
     type: String,
     required: true
@@ -14,6 +18,10 @@ const educationSchema = mongoose.Schema({
     required: true
   },
   country:{
+    type: String,
+    required: true
+  },
+  city:{
     type: String,
     required: true
   },

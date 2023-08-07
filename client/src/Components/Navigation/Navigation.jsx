@@ -29,13 +29,20 @@ const Navigation = () => {
   return (
     <>
       <div className="container flex mx-auto px-20 pt-10 justify-between items-center" >
-        <Link to="/" className='font-sans font-bold text-lg'>hrPorto</Link>
+        {token ?
+          <Link to="/candidateDashboard" className='font-sans font-bold text-lg'>hrPorto</Link>
+          :
+          <Link to="/" className='font-sans font-bold text-lg'>hrPorto</Link>
+        }
+
+
+
         <div className="hidden md:block">
           <div className='ml-10 flex items-baseline space-x-4'>
             {token ?
               <>
                 <p className='font-sans text-sm'>Welcome</p>
-                <p className='font-sans text-sm ml-2 font-bold'>{firstName} {lastName}</p>
+                <Link to="/candidate_account" className='font-sans text-sm ml-2 font-bold'>{firstName} {lastName}</Link>
               </>
               : null}
 
