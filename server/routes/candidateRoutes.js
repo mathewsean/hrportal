@@ -1,4 +1,5 @@
 import express from 'express'
+import { verifyToken } from '../middlewares/auth.js'
 import {registerCandidate, verifyOTP, login} from '../controllers/authController.js'
 import {updateEducation, updateWorkExperience, getCandidate, updateProfile, deleteFromEducation, deleteFromWorkExperience} from '../controllers/profileController.js'
 import {jobApply, findJobVacancyList, findJobDetails, findJobAppliedStatus} from '../controllers/jobController.js'
@@ -9,7 +10,7 @@ const candidate_router = express.Router()
 
 candidate_router.post('/register', registerCandidate)
 candidate_router.post('/verifyOtp', verifyOTP)
-candidate_router.post('/login', login)
+candidate_router.post('/login', login)   
 candidate_router.patch('/profile', updateProfile)
 candidate_router.patch('/education', updateEducation) 
 candidate_router.patch('/workexperience', updateWorkExperience)    

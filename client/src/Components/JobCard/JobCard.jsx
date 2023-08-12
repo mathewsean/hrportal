@@ -4,8 +4,7 @@ import {Link} from 'react-router-dom'
 
 function JobCard() {
 
-  const [jobVacancyList, setjobVacancyList] = useState([])
-  console.log(jobVacancyList, "WELL ");
+  const [jobVacancyList, setjobVacancyList] = useState([])  
 
   useEffect(() => {
 

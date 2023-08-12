@@ -60,7 +60,7 @@ function JobDetailCard() {
       }
 
       if (!jobApplied) {
-        const applyJob = await axios.post('/jobApply', jobApplyCredentials)
+        const applyJob = await axios.patch('/jobApply', jobApplyCredentials)
         window.location.reload();
       }
 
