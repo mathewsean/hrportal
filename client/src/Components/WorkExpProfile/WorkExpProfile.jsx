@@ -25,13 +25,17 @@ function WorkExpProfile() {
 
       async function handleWorkExpUpdation(){
         try {
-
-          const res = await axios.patch(`/workexperience?id=${candidateId}`, values)
+          const token = localStorage.getItem('token')
+          const res = await axios.patch(`/workexperience?id=${candidateId}`,values, {
+            headers:{
+              Authorization: token
+            }
+          })
           console.log(res.data);
 
           if(res.status === 200){
             setIsVerified(true)
-          }
+          } 
           
         } catch (error) {
           console.error(error)

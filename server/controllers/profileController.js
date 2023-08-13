@@ -1,6 +1,7 @@
 import Candidate from "../models/candidateModel.js"
 import Education from "../models/educationModel.js"
 import WorkExperience from "../models/workExperienceModel.js"
+import { login } from "./authController.js"
 
 
 // To update education section of candidate
@@ -96,6 +97,29 @@ export const getCandidate = async (req, res) => {
 
     if (getCandidate) {
       return res.status(200).json({ getCandidate })
+    }
+
+  } catch (error) {
+    return res.status(400).json({ message: error.message })
+  }
+}
+
+//To get the name of a candidate
+export const getCandidateName = async (req, res) => {
+  try {
+    const { candidateId } = req.query
+
+    const getDetailsOfCandidate = await Candidate.findOne({ _id: candidateId })
+    console.log(getDetailsOfCandidate);
+
+    if (getDetailsOfCandidate) {
+      
+      const firstName = getDetailsOfCandidate.firstName
+      console.log(firstName, 'firstName');
+      const lastName = getDetailsOfCandidate.lastName
+      console.log(lastName, 'lastName');
+
+      return res.status(200).json({ firstName, lastName })
     }
 
   } catch (error) {

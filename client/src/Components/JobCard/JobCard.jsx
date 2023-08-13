@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../../Services/axiosInterceptor'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 function JobCard() {
 
   const [jobVacancyList, setjobVacancyList] = useState([])  
+  const navigate = useNavigate()
 
   useEffect(() => {
 
     async function getJobList() {
       try {
-        const res = await axios.get('/getJobList')
+        
+        const token = localStorage.getItem('token')
+
+        if(!token){     
+          navigate('/login')
+
+          return
+        }
+        
+        const res = await axios.get('/getJobList',{
+          headers:{
+            Authorization: token  
+          }
+        })
         setjobVacancyList(res.data.getJobList)
         
 
