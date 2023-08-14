@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../../Services/axiosInterceptor';
 import { Link } from 'react-router-dom';
-import jwt_decode from 'jwt-decode'
+import { useParams } from 'react-router-dom'
 
-function CandidateDetails() {
+function AdminCandidateProfile() {
 
-  const token = localStorage.getItem("token")
+  
   const [candidate, setCandidate] = useState({})
   const [education, setEducation] = useState([])
-  const [workExperience, setWorkExperience] = useState([])
-  const {id} = jwt_decode(token)
-  const candidateId = id
-  
-  
+  const [workExperience, setWorkExperience] = useState([])  
+  const {candidateId} = useParams()
+  console.log('AdminCandidateProfile',candidateId);
+
 
   useEffect(() => {
 
     async function getCandidate() {
-      try {       
-        
-        const res = await axios.get(`/candidateDetails?id=${candidateId}`)
+      try {
+
+        const res = await axios.get(`/admin/job_applied_candidate_details?id=${candidateId}`)
 
         if (res.status === 200) {
           setCandidate(res.data.getCandidate)
@@ -49,40 +48,43 @@ function CandidateDetails() {
     }
   }
 
-  const handleDeleteEducation = async(id, candidateId) => {   
-    
+  const handleDeleteEducation = async (id, candidateId) => {
+
     try {
       const res = await axios.delete(`/deleteEducation?id=${id}&candId=${candidateId}`)
       window.location.reload();
-            
-    } catch (error) {      
+
+    } catch (error) {
       console.log(error);
     }
   }
 
-  const handleDeleteWorkExp = async(id, candidateId) => {   
-    
+  const handleDeleteWorkExp = async (id, candidateId) => {
+
     try {
       const res = await axios.delete(`/deleteWorkExperience?id=${id}&candId=${candidateId}`)
       window.location.reload();
-            
-    } catch (error) {      
+
+    } catch (error) {
       console.log(error);
     }
   }
 
+
+
+
+
   return (
     <>
-
       <div className='flex flex-col w-10/12 h-5/6 bg-slate-200 rounded-2xl shadow-md my-7 mx-10'>
         <form onSubmit={handleProfileupdate} className='container mx-10 flex flex-col'>
           <div className='flex justify-around'>
             <p className='font-sans text-2xl font-bold mx-10 mt-7 text-left'>
               Profile
             </p>
-            <button type='submit' className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-7 mx-10 rounded-md'>
+            {/* <button type='submit' className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-7 mx-10 rounded-md'>
               Save
-            </button>
+            </button> */}
           </div>
 
           <label className='font-sans text-black mt-10 font-bold'>First Name</label>
@@ -152,10 +154,10 @@ function CandidateDetails() {
             <p className='font-sans text-2xl font-bold mx-10 mt-7  text-left'>
               Education
             </p>
-            <Link to={`/candidate_education`} 
-            className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-7 mx-10 rounded-md text-center pt-1'>
+            {/* <Link to={`/candidate_education`}
+              className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-7 mx-10 rounded-md text-center pt-1'>
               Add +
-            </Link>
+            </Link> */}
           </div>
 
           {education.length > 0 ? (education.map((education, index) => (
@@ -191,13 +193,13 @@ function CandidateDetails() {
                 {education.toDate}
               </p>
 
-              <button               
-              onClick={(e) =>{ 
-                e.preventDefault(); 
-                handleDeleteEducation(education._id, candidateId)
-              }} 
-              className='w-48 h-10 bg-cyan-300 text-lg font-semibold text-black mt-2 mb-10 rounded-md text-center'>
-                Delete
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDeleteEducation(education._id, candidateId)
+                }}
+                className='w-48 h-10 bg-cyan-300 text-lg font-semibold text-black mt-2 mb-10 rounded-md text-center'>
+                
               </button>
 
             </div>
@@ -214,9 +216,9 @@ function CandidateDetails() {
             <p className='font-sans text-2xl font-bold mx-10 mt-7  text-left'>
               Job Title
             </p>
-            <Link to={`/candidate_work_experience`} className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-7 mx-10 rounded-md text-center pt-1'>
+            {/* <Link to={`/candidate_work_experience`} className='w-96 h-10 bg-sky-700 text-lg font-semibold text-white mt-7 mx-10 rounded-md text-center pt-1'>
               Add +
-            </Link>
+            </Link> */}
           </div>
 
           {workExperience.length > 0 ? (workExperience.map((workExperience, index) => (
@@ -241,13 +243,13 @@ function CandidateDetails() {
               <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg mb-10' >{workExperience.description}</p>
               {/* <textarea className="resize-y rounded-md w-9/12 h-1/3 mb-10" ></textarea> */}
 
-              <button               
-              onClick={(e) =>{ 
-                e.preventDefault(); 
-                handleDeleteWorkExp(workExperience._id, candidateId)
-              }} 
-              className='w-48 h-10 bg-cyan-300 text-lg font-semibold text-black mt-2 mb-10 rounded-md text-center'>
-                Delete
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleDeleteWorkExp(workExperience._id, candidateId)
+                }}
+                className='w-48 h-10 bg-cyan-300 text-lg font-semibold text-black mt-2 mb-10 rounded-md text-center'>
+              
               </button>
 
             </div>
@@ -259,11 +261,8 @@ function CandidateDetails() {
         </form>
       </div>
 
-
-
     </>
-
   )
 }
 
-export default CandidateDetails
+export default AdminCandidateProfile

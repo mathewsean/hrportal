@@ -1,6 +1,6 @@
 import express from "express";
 import {adminLogin, registerAdmin, verifyOTPAdmin} from "../controllers/adminAuthController.js"
-import {jobPostNew, findListOfJobApplication} from "../controllers/adminJobVacancyController.js"
+import {jobPostNew, findListOfJobApplication, getCandidate} from "../controllers/adminJobVacancyController.js"
 import {findJobVacancyList} from "../controllers/jobController.js"
 
  
@@ -13,6 +13,7 @@ admin_router.post('/post_job_vacancy', jobPostNew)
 
 admin_router.get('/job_vacancylist', findJobVacancyList)
 admin_router.get('/job_applied_candidates_list', findListOfJobApplication)
+admin_router.get('/job_applied_candidate_details', getCandidate)
 
 
 export default admin_router  

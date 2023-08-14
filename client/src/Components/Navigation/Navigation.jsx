@@ -6,30 +6,24 @@ import axios from '../../Services/axiosInterceptor';
 const Navigation = () => {
   const navigate = useNavigate()
   const token = localStorage.getItem("token")
-  const [firstName, setFirstName] = useState("")
-  console.log(firstName, 'firstName');
+  const [firstName, setFirstName] = useState("")  
   const [lastName, setLastName] = useState("")
-  console.log(lastName, 'lastNamr');
+ 
  
 
   useEffect(() => {
     if (token) {
-      const candidateId = jwt_decode(token)
-      console.log('candidateIdCurrent',candidateId.id);
+      const candidateId = jwt_decode(token)   
       async function getUserData(){
         try {
           const userData = await axios.get(`/getCandidateName?candidateId=${candidateId.id}`, {
             headers:{
             Authorization: token
           }
-        })
-
-        
+        })        
 
           setFirstName(userData.data.firstName)
-          setLastName(userData.data.lastName)    
-          
-        
+          setLastName(userData.data.lastName)       
           
         } catch (error) {
           console.error(error)

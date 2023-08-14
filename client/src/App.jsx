@@ -16,6 +16,8 @@ import AdminJobVacancyPost from './Pages/AdminJobVacancyPost/AdminJobVacancyPost
 import EducationProfile from './Pages/CandidateEducation/CandidateEducation'
 import CandidateWorkExpProfile from './Pages/CandidateWorkExpProfile/CandidateWorkExpProfile'
 import AdminJobVacancyListPage from './Pages/AdminJobVacancyListPage/AdminJobVacancyListPage'
+import AdminJobAppliedPage from './Pages/AdminJobAppliedPage/AdminJobAppliedPage'
+import AdminCandidateProfilePage from './Pages/AdminCandidateProfilePage/AdminCandidateProfilePage'
 
 
 function App() {  
@@ -40,6 +42,8 @@ function App() {
       <Route path='/admin_dashboard' element={<AdminDashboard />} />
       <Route path='/admin_job_post' element={<AdminJobVacancyPost/>} />
       <Route path='/admin_job_vacancy_list' element={<AdminJobVacancyListPage/>} />
+      <Route path='/admin_job_applied_candidate_list/:jobId' element={<AdminJobAppliedPage />} />
+      <Route path='/admin_job_applied_candidate_profile/:candidateId' element={< AdminCandidateProfilePage />} />
     </Routes>
     </BrowserRouter>     
     </>
