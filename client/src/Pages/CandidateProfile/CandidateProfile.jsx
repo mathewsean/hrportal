@@ -10,15 +10,9 @@ import CandidateDetails from '../../Components/CandidateDetails/CandidateDetails
 function CandidateProfile() {
   return (
     <>
-    <div className='flex flex-col items-center gap-5'>
+    
     <Navigation/>
     <CandidateDetails/>
-
-    {/* <PersonalProfile/>
-    <EducationProfile/>
-    <WorkExpProfile/>
-    <CvUpload/> */}
-    </div>
 
     </>
     

@@ -57,6 +57,10 @@ const candidateSchema = mongoose.Schema({
   otpCreatedAt:{
     type: String,
     required: true
+  },
+  isEmployee:{
+    type: Boolean,
+    default: false
   }
 })
 
