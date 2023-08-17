@@ -8,7 +8,8 @@ import {
   updateProfile, 
   deleteFromEducation, 
   deleteFromWorkExperience, 
-  getCandidateName
+  getCandidateName,
+  isEmployee
 } from '../controllers/profileController.js'
 import {
   jobApply, 
@@ -36,7 +37,8 @@ candidate_router.get('/getJobList', verifyToken ,findJobVacancyList)
 candidate_router.get('/getJobDetails/:id', findJobDetails) 
 candidate_router.get('/JobAppliedStatus', findJobAppliedStatus)
 candidate_router.get('/candidateDetails', getCandidate)  
-candidate_router.get('/getCandidateName',verifyToken ,getCandidateName)  
+candidate_router.get('/getCandidateName',verifyToken ,getCandidateName) 
+candidate_router.get('/statusOfEmployee', isEmployee) 
 
 
 export default candidate_router 

@@ -220,3 +220,23 @@ export const deleteFromWorkExperience = async (req, res) => {
   }
 }
 
+export const isEmployee = async(req, res) => {
+  try {
+
+    const {id} = req.query
+
+    const getCandidate = await Candidate.findOne({_id:id})
+
+    if(getCandidate){
+      if(getCandidate.isEmployee){
+        res.status(200).json({isEmployee: true})
+      } else {
+        res.status(200).json({isEmployee: false})
+      }
+
+    }
+    
+  } catch (error) {
+    return res.status(400).json({message: error.message})
+  }
+}

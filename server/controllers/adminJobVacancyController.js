@@ -63,10 +63,10 @@ export const findListOfJobApplication = async(req, res) => {
 export const getCandidate = async (req, res) => {
   try {
     const { id } = req.query
-    console.log("helloid", id);
+    
 
     const getCandidate = await Candidate.findOne({ _id: id }).populate('education').populate('workExperience')
-    console.log("Hello",getCandidate);
+    
 
     if (getCandidate) {
       return res.status(200).json({ getCandidate })

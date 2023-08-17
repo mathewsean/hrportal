@@ -12,13 +12,15 @@ app.use(morgan('tiny'))
 const PORT = process.env.PORT || 8000
 connectDB()
 
-import candidateRouter from './routes/candidateRoutes.js'
+import candidateRouter from './routes/candidateRoutes.js' 
 app.use('/', candidateRouter)
 
 import adminRouter from './routes/adminRoutes.js'
 import morgan from 'morgan'
 app.use('/admin', adminRouter)
 
+import employeeRouter from './routes/employeeRoutes.js'
+app.use('/', employeeRouter)
 
 
 app.listen(PORT, ()=>{

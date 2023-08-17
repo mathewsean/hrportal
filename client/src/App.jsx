@@ -18,6 +18,9 @@ import CandidateWorkExpProfile from './Pages/CandidateWorkExpProfile/CandidateWo
 import AdminJobVacancyListPage from './Pages/AdminJobVacancyListPage/AdminJobVacancyListPage'
 import AdminJobAppliedPage from './Pages/AdminJobAppliedPage/AdminJobAppliedPage'
 import AdminCandidateProfilePage from './Pages/AdminCandidateProfilePage/AdminCandidateProfilePage'
+import EmployeeLeavePage from './Pages/EmployeeLeavePage/EmployeeLeavePage'
+import EmployeeLeavePostPage from './Pages/EmployeeLeavePostPage/EmployeeLeavePostPage'
+import AdminLeaveApplicationPage from './Pages/AdminLeaveApplicationPage/AdminLeaveApplicationPage'
 
 
 function App() {  
@@ -35,6 +38,9 @@ function App() {
       <Route path="/candidate_account" element={<CandidateProfile/>} />
       <Route path="/candidate_education" element={<EducationProfile/>} />
       <Route path="/candidate_work_experience" element={<CandidateWorkExpProfile/>}/>
+
+      <Route path="/employee_leave_list" element={<EmployeeLeavePage/>} />
+      <Route path="/employee_leave_apply" element={<EmployeeLeavePostPage/>} />
       
       <Route path="/admin_login" element={<AdminLogin/>} />
       <Route path='/admin_register' element={<AdminRegister/>} />
@@ -44,6 +50,7 @@ function App() {
       <Route path='/admin_job_vacancy_list' element={<AdminJobVacancyListPage/>} />
       <Route path='/admin_job_applied_candidate_list/:jobId' element={<AdminJobAppliedPage />} />
       <Route path='/admin_job_applied_candidate_profile/:candidateId' element={< AdminCandidateProfilePage />} />
+      <Route path='/admin_leave_application_list' element={< AdminLeaveApplicationPage />} />
     </Routes>
     </BrowserRouter>     
     </>

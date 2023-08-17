@@ -34,11 +34,15 @@ function AdminTabs() {
             DEPARTMENTS
           </p>
         </button>
+
+        <Link to={'/admin_leave_application_list'}>
         <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
           <p className='text-white font-bold text-lg text-center'>
             LEAVE APPLICATION APPROVAL
           </p>
         </button>
+        </Link> 
+
         <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
           <p className='text-white font-bold text-lg text-center'>
             ATTENDANCE

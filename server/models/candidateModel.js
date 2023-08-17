@@ -61,7 +61,7 @@ const candidateSchema = mongoose.Schema({
   isEmployee:{
     type: Boolean,
     default: false
-  }
+  } 
 })
 
 const Candidate = mongoose.model('Candidate', candidateSchema)

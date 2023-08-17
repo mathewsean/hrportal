@@ -8,8 +8,7 @@ const Navigation = () => {
   const token = localStorage.getItem("token")
   const [firstName, setFirstName] = useState("")  
   const [lastName, setLastName] = useState("")
- 
- 
+   
 
   useEffect(() => {
     if (token) {
