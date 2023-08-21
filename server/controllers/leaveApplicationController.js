@@ -11,9 +11,7 @@ export const postLeaveApplication = async (req, res) => {
       fromDate,
       toDate,
       reason
-    })
-
-    console.log(createLeaveApplication);
+    })    
 
     if (createLeaveApplication) {
       return res.status(200).json({ message: "Leave application Created Sucessfully" })
@@ -48,9 +46,7 @@ export const getEmployeeLeaveList = async(req, res) => {
 export const getLeaveApplications = async(req, res) => {
   try {
 
-    const leaveApplicationsList = await LeaveApplication.find().populate('employeeId')   
-
-    console.log(leaveApplicationsList);
+    const leaveApplicationsList = await LeaveApplication.find().populate('employeeId')    
 
     if(leaveApplicationsList){
       return res.status(200).json(leaveApplicationsList)

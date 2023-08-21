@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode'
 import axios from '../../Services/axiosInterceptor';
@@ -6,37 +6,35 @@ import axios from '../../Services/axiosInterceptor';
 const Navigation = () => {
   const navigate = useNavigate()
   const token = localStorage.getItem("token")
-  const [firstName, setFirstName] = useState("")  
+  const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
-   
+  const [isEmployee, setIsEmployee] = useState(false)
+
 
   useEffect(() => {
     if (token) {
-      const candidateId = jwt_decode(token)   
-      async function getUserData(){
+      const candidateId = jwt_decode(token)
+      async function getUserData() {
         try {
-          const userData = await axios.get(`/getCandidateName?candidateId=${candidateId.id}`, {
-            headers:{
-            Authorization: token
-          }
-        })        
+          const userData = await axios.get(`/getCandidateName?candidateId=${candidateId.id}`)
 
           setFirstName(userData.data.firstName)
-          setLastName(userData.data.lastName)       
-          
+          setLastName(userData.data.lastName)
+          setIsEmployee(userData.data.isEmployee)
+
         } catch (error) {
           console.error(error)
         }
       }
 
       getUserData()
-      
-      
+
+
     }
   }, [firstName, lastName])
 
   const handleLogout = () => {
-    localStorage.removeItem("token")    
+    localStorage.removeItem("token")
     navigate("/login")
   }
 
@@ -52,7 +50,6 @@ const Navigation = () => {
         }
 
 
-
         <div className="hidden md:block">
           <div className='ml-10 flex items-baseline space-x-4'>
             {firstName && lastName ?
@@ -60,13 +57,21 @@ const Navigation = () => {
                 <p className='font-sans text-sm'>Welcome</p>
                 <Link to="/candidate_account" className='font-sans text-sm ml-2 font-bold'>{firstName} {lastName}</Link>
               </>
-              : null}
+              :
+              null
+            }
 
-            <Link to="/candidateDashboard" className='font-sans text-sm ml-10'>Career</Link>
+            {isEmployee ?
+              null
+              :
+              <Link to="/candidateDashboard" className='font-sans text-sm ml-10'>Career</Link>
+            }
+
             {firstName && lastName ?
               (<button onClick={handleLogout} className='font-sans text-sm ml-10'>Logout</button>)
               :
-              (<Link to="/login" className='font-sans text-sm ml-10'>Login</Link>)}
+              (<Link to="/login" className='font-sans text-sm ml-10'>Login</Link>)
+            }
           </div>
         </div>
       </div>

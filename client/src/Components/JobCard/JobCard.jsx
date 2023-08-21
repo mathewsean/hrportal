@@ -14,11 +14,11 @@ function JobCard() {
         
         const token = localStorage.getItem('token')
 
-        if(!token){     
-          navigate('/login')
+        // if(!token){     
+        //   navigate('/login')
 
-          return
-        }
+        //   return
+        // }
         
         const res = await axios.get('/getJobList',{
           headers:{

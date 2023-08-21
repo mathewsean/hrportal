@@ -1,6 +1,7 @@
 
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 import './App.css'
+import PrivateRoute from './utils/PrivateRoute'
 import Home from './Pages/Home/Home'
 import Login from './Pages/Login/Login'
 import DashboardCandidate from './Pages/DashboardCandidate/DashboardCandidate'
@@ -23,36 +24,41 @@ import EmployeeLeavePostPage from './Pages/EmployeeLeavePostPage/EmployeeLeavePo
 import AdminLeaveApplicationPage from './Pages/AdminLeaveApplicationPage/AdminLeaveApplicationPage'
 
 
-function App() {  
+function App() {
 
   return (
     <>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/register" element={<RegisterCandidate/>} />
-      <Route path="/verify_Otp" element={ <VerifyOTP/> } />
-      <Route path="/candidateDashboard" element={<DashboardCandidate/>} />
-      <Route path="/jobs/:id" element={<JobDetails/>} />
-      <Route path="/candidate_account" element={<CandidateProfile/>} />
-      <Route path="/candidate_education" element={<EducationProfile/>} />
-      <Route path="/candidate_work_experience" element={<CandidateWorkExpProfile/>}/>
+      <BrowserRouter>
+        <Routes>       
 
-      <Route path="/employee_leave_list" element={<EmployeeLeavePage/>} />
-      <Route path="/employee_leave_apply" element={<EmployeeLeavePostPage/>} />
-      
-      <Route path="/admin_login" element={<AdminLogin/>} />
-      <Route path='/admin_register' element={<AdminRegister/>} />
-      <Route path='/admin_verify_otp' element={<AdminVerifyOtp/>}  />
-      <Route path='/admin_dashboard' element={<AdminDashboard />} />
-      <Route path='/admin_job_post' element={<AdminJobVacancyPost/>} />
-      <Route path='/admin_job_vacancy_list' element={<AdminJobVacancyListPage/>} />
-      <Route path='/admin_job_applied_candidate_list/:jobId' element={<AdminJobAppliedPage />} />
-      <Route path='/admin_job_applied_candidate_profile/:candidateId' element={< AdminCandidateProfilePage />} />
-      <Route path='/admin_leave_application_list' element={< AdminLeaveApplicationPage />} />
-    </Routes>
-    </BrowserRouter>     
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterCandidate />} />
+          <Route path="/verify_Otp" element={<VerifyOTP />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route path="/candidateDashboard" element={<DashboardCandidate />} />
+            <Route path="/jobs/:id" element={<JobDetails />} />
+            <Route path="/candidate_account" element={<CandidateProfile />} />
+            <Route path="/candidate_education" element={<EducationProfile />} />
+            <Route path="/candidate_work_experience" element={<CandidateWorkExpProfile />} />
+
+            <Route path="/employee_leave_list" element={<EmployeeLeavePage />} />
+            <Route path="/employee_leave_apply" element={<EmployeeLeavePostPage />} />
+          </Route>
+
+
+          <Route path="/admin_login" element={<AdminLogin />} />
+          <Route path='/admin_register' element={<AdminRegister />} />
+          <Route path='/admin_verify_otp' element={<AdminVerifyOtp />} />
+          <Route path='/admin_dashboard' element={<AdminDashboard />} />
+          <Route path='/admin_job_post' element={<AdminJobVacancyPost />} />
+          <Route path='/admin_job_vacancy_list' element={<AdminJobVacancyListPage />} />
+          <Route path='/admin_job_applied_candidate_list/:jobId' element={<AdminJobAppliedPage />} />
+          <Route path='/admin_job_applied_candidate_profile/:candidateId' element={< AdminCandidateProfilePage />} />
+          <Route path='/admin_leave_application_list' element={< AdminLeaveApplicationPage />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

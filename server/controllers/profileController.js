@@ -118,8 +118,9 @@ export const getCandidateName = async (req, res) => {
       console.log(firstName, 'firstName');
       const lastName = getDetailsOfCandidate.lastName
       console.log(lastName, 'lastName');
+      const isEmployee = getDetailsOfCandidate.isEmployee
 
-      return res.status(200).json({ firstName, lastName })
+      return res.status(200).json({ firstName, lastName, isEmployee })
     }
 
   } catch (error) {
