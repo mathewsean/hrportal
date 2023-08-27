@@ -28,7 +28,7 @@ const jobSchema = mongoose.Schema({
     required: true
   },
   expiry:{
-    type: String,
+    type: Date,
     required: true
   },
   active:{

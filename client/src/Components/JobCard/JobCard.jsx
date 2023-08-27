@@ -54,7 +54,7 @@ function JobCard() {
                 <p className='font-sans font-bold mx-10 mt-2 text-left'>
                   {job.location}
                 </p>
-                <p className='font-sans mx-10 mt-2 text-left'>
+                <p className='font-sans mx-10 mt-2 text-left '>   
                   {job.jobDescription}
                 </p>
               </button> 

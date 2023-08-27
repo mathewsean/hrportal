@@ -55,7 +55,7 @@ function EmployeeLeaveList() {
             </tr>
           </thead>
           <tbody>
-            {leaveList.map((leave, index) => (
+            {leaveList.slice().reverse().map((leave, index) => (
               <tr key={index} className="bg-white">
                 <td className="border border-gray-400 px-4 py-2">{format(parseISO(leave.fromDate), "dd/MM/yyyy")}</td>
                 <td className="border border-gray-400 px-4 py-2">{format(parseISO(leave.toDate), "dd/MM/yyyy")}</td>

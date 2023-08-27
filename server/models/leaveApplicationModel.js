@@ -6,11 +6,11 @@ const leaveApplicationSchema = mongoose.Schema({
     ref: 'Candidate'
   },
   fromDate: {
-    type: String,
+    type: Date,
     required:true
   },
   toDate: {
-    type: String,
+    type: Date,
     required: true
   },
   reason:{

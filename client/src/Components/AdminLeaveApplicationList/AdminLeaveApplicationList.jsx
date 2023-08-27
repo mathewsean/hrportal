@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from '../../Services/axiosInterceptor';
+import { format, parseISO } from 'date-fns'
 
 function AdminLeaveApplicationList() {
 
@@ -62,23 +63,23 @@ function AdminLeaveApplicationList() {
             </tr>
           </thead>
           <tbody>
-            {leaveList.map((leave, index) => (
+            {leaveList.slice().reverse().map((leave, index) => (
               <tr key={index} className="bg-white">
                 <td className="border border-gray-400 px-4 py-2">{leave.employeeId.firstName} {leave.employeeId.lastName}</td>
-                <td className="border border-gray-400 px-4 py-2">{leave.fromDate}</td>
-                <td className="border border-gray-400 px-4 py-2">{leave.toDate}</td>
+                <td className="border border-gray-400 px-4 py-2">{format(parseISO(leave.fromDate), "dd/MM/yyyy")}</td>
+                <td className="border border-gray-400 px-4 py-2">{format(parseISO(leave.toDate), "dd/MM/yyyy")}</td>
                 <td className="border border-gray-400 px-4 py-2">{leave.reason}</td>
                 <td className="border border-gray-400 px-4 py-2">{leave.status}</td>
                 <td className="border border-gray-400 px-4 py-2">
 
-                  <div className='flex justify-around'>
+                  <div className='flex flex-col'>
                     {leave.status == "Pending" || leave.status == "Rejected" ?
                       <button onClick={() => handleStatus(leave._id, "Approved")} className='bg-green-400 text-white px-4 py-1 rounded-md'>
                         APPROVE
                       </button>
                       : null }
                       {leave.status == "Pending" || leave.status == "Approved" ?
-                      <button onClick={() => handleStatus(leave._id, "Rejected")} className='bg-red-400 text-white px-4 py-1 rounded-md'>
+                      <button onClick={() => handleStatus(leave._id, "Rejected")} className='bg-red-400 text-white px-4 py-1 rounded-md mt-6'>
                         REJECT
                       </button>
                       : null }

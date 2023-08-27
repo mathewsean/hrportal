@@ -54,7 +54,7 @@ function EmployeeLeaveForm() {
               selected={fromDate}
               onChange={(date) => setFromDate(date)}
               dateFormat='dd/MM/yyyy'
-              maxDate={new Date()}
+              minDate={new Date()}
               showYearDropdown
               scrollableYearDropdown
               placeholdertext='  Enter From Date'
@@ -71,7 +71,7 @@ function EmployeeLeaveForm() {
               selected={toDate}
               onChange={(date) => setToDate(date)}
               dateFormat='dd/MM/yyyy'
-              maxDate={new Date()}
+              minDate={new Date()}
               showYearDropdown
               scrollableYearDropdown
               placeholdertext='  Enter To Date'
