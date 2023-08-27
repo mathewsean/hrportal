@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import axios from '../../Services/axiosInterceptor'
 import { useParams } from 'react-router-dom'
-
-
+import jwtDecode from 'jwt-decode'
 
 function JobDetailCard() {
 
   const { id } = useParams()
 
+  const token = localStorage.getItem('token')
+  const candidateId = jwtDecode(token) 
+  
   const [jobDetails, setJobDetails] = useState({})
   const [jobApplied, setJobApplied] = useState(false)
-  const candidateId = localStorage.getItem('id')
+  
  
 
   useEffect(() => {
@@ -35,7 +37,7 @@ function JobDetailCard() {
         const res = await axios.get(`/JobAppliedStatus`, {
           params:{
             jobId: id,
-            candidateId: candidateId
+            candidateId: candidateId.id
           }
         })
         console.log(res.data);
@@ -48,7 +50,7 @@ function JobDetailCard() {
 
     jobAppliedStatus()
 
-  }, [id, candidateId])
+  }, [id, candidateId.id])
 
 
 
@@ -56,7 +58,7 @@ function JobDetailCard() {
     try {
       const jobApplyCredentials = {
         jobId: id,
-        candidateId
+        candidateId:candidateId.id
       }
 
       if (!jobApplied) {

@@ -6,6 +6,8 @@ export const jobApply = async(req, res) => {
   try {
     const {jobId, candidateId} = req.body
 
+    console.log('candidate id fo',candidateId );
+
     const findJobIdExist = await JobApplied.findOne({jobId:jobId})
 
     if(!findJobIdExist){
@@ -17,7 +19,7 @@ export const jobApply = async(req, res) => {
       if(createJobApplied){
         await JobApplied.findByIdAndUpdate(
           createJobApplied._id,
-          {$push:{jobAppliedCandidateId:candidateId}}
+          { $push: { pending:[candidateId] } }
           )
         return res.status(200).json({message:"Job Applied Succesfully"})
       }
@@ -27,7 +29,7 @@ export const jobApply = async(req, res) => {
 
       const addCandidateId = await JobApplied.findByIdAndUpdate(
         findJobIdExist._id,
-        {$push:{jobAppliedCandidateId:candidateId}}
+        { $push: { pending:[candidateId] } }
       )
       return res.status(200).json({message:"Job Applied Succesfully"})
     }
@@ -77,13 +79,22 @@ export const findJobDetails = async(req,res) => {
 export const findJobAppliedStatus = async(req,res) => {
   try {
 
-    const {jobId, candidateId} = req.query
+    const {jobId, candidateId} = req.query  
 
-    const findStatus = await JobApplied.findOne({jobId:jobId})
+    const findStatus = await JobApplied.findOne({jobId:jobId})    
 
     if(findStatus){
 
-      const isCandidateApplied = findStatus.jobAppliedCandidateId.includes(candidateId)     
+      const allIds = [
+        ...findStatus.pending,
+        ...findStatus.notAFit,
+        ...findStatus.mayBe,
+        ...findStatus.goodFit
+      ]      
+
+      const isCandidateApplied = allIds.some(id => id.equals(candidateId))
+      
+      console.log(isCandidateApplied);   
       res.status(200).json({isCandidateApplied}) 
  
     } else {

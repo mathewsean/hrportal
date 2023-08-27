@@ -6,9 +6,21 @@ const jobAppliedSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'JobVacancy'
   },
-  jobAppliedCandidateId:[{
+  pending:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Candidate'
+  }],
+  notAFit:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Candidate'
+  }],
+  mayBe:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Candidate'    
+  }],
+  goodFit:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Candidate'
   }]
 })
 

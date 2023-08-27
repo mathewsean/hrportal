@@ -15,7 +15,7 @@ const candidateSchema = mongoose.Schema({
     required: true
   },
   dob: {
-    type: String,
+    type: Date,
     
   },
   contactNos:{

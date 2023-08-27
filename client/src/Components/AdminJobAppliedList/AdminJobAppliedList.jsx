@@ -7,10 +7,11 @@ function AdminJobAppliedList() {
 
   const { jobId } = useParams()
 
-  const [jobDetails, setjobDetails] = useState({})
-  console.log(jobDetails);
-  const [jobAppliedCandidateList, setJobAppliedCandidateList] = useState([])
-  console.log(jobAppliedCandidateList);
+  const [jobDetails, setjobDetails] = useState({})  
+  const [jobAppliedPendingList, setJobAppliedPendingList] = useState([])
+  const [jobAppliedNotAFitList, setJobAppliedNotAFitList] = useState([])
+  const [jobAppliedMayBeList, setJobAppliedMayBeList] = useState([])
+  const [jobAppliedGoodFit, setJobAppliedGoodFit ] = useState([])
 
   useEffect(() => {
 
@@ -21,7 +22,10 @@ function AdminJobAppliedList() {
 
         if (res.status === 200) {
           setjobDetails(res.data.jobId)
-          setJobAppliedCandidateList(res.data.jobAppliedCandidateId)
+          setJobAppliedPendingList(res.data.pending)
+          setJobAppliedNotAFitList(res.data.notAFit)
+          setJobAppliedMayBeList(res.data.mayBe)
+          setJobAppliedGoodFit(res.data.goodFit)
         }
 
       } catch (error) {
@@ -36,7 +40,7 @@ function AdminJobAppliedList() {
   return (
     <>
 
-      {jobAppliedCandidateList.length > 0 ?
+      
         <div className="mx-auto w-3/4 p-8">
 
           <p className='font-sans font-bold text-lg'>Job Title : {jobDetails.jobTitle}</p>
@@ -45,8 +49,11 @@ function AdminJobAppliedList() {
           <p className='font-sans font-bold text-base'>Salary Max : {jobDetails.salaryMax}</p>
           <p className='font-sans font-bold text-base'>Job Type : {jobDetails.jobType}</p>
           <br></br>
+          
           <p className='font-sans font-bold text-xl'>Job Applied Candidate List</p>
           <br></br>
+          {jobAppliedPendingList.length > 0 ?
+          <div>
           <table className="min-w-full table-auto border-collapse border border-gray-400">
             <thead>
               <tr className="bg-sky-700 text-white">
@@ -60,7 +67,7 @@ function AdminJobAppliedList() {
               </tr>
             </thead>
             <tbody>
-              {jobAppliedCandidateList.map((candidate, index) => (
+              {jobAppliedPendingList.map((candidate, index) => (
                 <tr key={index} className="bg-white">
                   <td className="border border-gray-400 px-4 py-2">{candidate.firstName} {candidate.lastName} </td>
                   <td className="border border-gray-400 px-4 py-2">{candidate.emailId}</td>
@@ -91,6 +98,7 @@ function AdminJobAppliedList() {
         </div>
 
       }
+      </div>
     </>
   )
 }

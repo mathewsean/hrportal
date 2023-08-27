@@ -110,14 +110,11 @@ export const getCandidateName = async (req, res) => {
     const { candidateId } = req.query
 
     const getDetailsOfCandidate = await Candidate.findOne({ _id: candidateId })
-    console.log(getDetailsOfCandidate);
-
+    
     if (getDetailsOfCandidate) {
       
-      const firstName = getDetailsOfCandidate.firstName
-      console.log(firstName, 'firstName');
-      const lastName = getDetailsOfCandidate.lastName
-      console.log(lastName, 'lastName');
+      const firstName = getDetailsOfCandidate.firstName      
+      const lastName = getDetailsOfCandidate.lastName      
       const isEmployee = getDetailsOfCandidate.isEmployee
 
       return res.status(200).json({ firstName, lastName, isEmployee })

@@ -2,6 +2,7 @@ import JobVacancy from "../models/jobVacancyModel.js";
 import Job from "../models/jobVacancyModel.js"
 import JobApplied from "../models/jobAppliedModel.js";
 import Candidate from "../models/candidateModel.js"
+import { populate } from "dotenv";
 
 //To add a new job post by admin
 export const jobPostNew = async (req, res) => {
@@ -47,7 +48,13 @@ export const findListOfJobApplication = async(req, res) => {
     const jobId = req.query.id
 
     
-    const findAppliedCandidates = await JobApplied.findOne({jobId:jobId}).populate('jobId').populate('jobAppliedCandidateId')
+    const findAppliedCandidates = await JobApplied.findOne({ jobId: jobId })
+    .populate('jobId').populate('pending')
+    
+
+    console.log("find Applied Candif",findAppliedCandidates);
+   
+    
     if(findAppliedCandidates){
       return res.status(200).json(findAppliedCandidates)
     }
@@ -74,6 +81,25 @@ export const getCandidate = async (req, res) => {
 
   } catch (error) {
     return res.status(400).json({ message: error.message })
+  }
+}
+
+//To update job application of candidate
+
+export const updateJobApplicationStatus = async(req, res) => {
+  try {
+
+    
+    const {status} = req.body
+
+    if(status == 'goodFit'){
+      
+    }
+
+
+    
+  } catch (error) {
+    return res.status(500).json({message: error.message})
   }
 }
 

@@ -9,8 +9,7 @@ function AdminCandidateProfile() {
   const [candidate, setCandidate] = useState({})
   const [education, setEducation] = useState([])
   const [workExperience, setWorkExperience] = useState([])
-  const { candidateId } = useParams()
-  console.log('AdminCandidateProfile', candidateId);
+  const { candidateId, jobId } = useParams()
 
 
   useEffect(() => {
@@ -35,41 +34,13 @@ function AdminCandidateProfile() {
 
   }, [])
 
-  const handleProfileupdate = async (e) => {
-    e.preventDefault()
-    try {
+  const handleGoodFit = async(status) =>{
 
-      const res = await axios.patch(`/profile?id=${candidateId}`, candidate)
-      console.log(candidate);
-      console.log('res', res);
+    
+    
+    console.log(status);
 
-    } catch (error) {
-      console.error(error);
-    }
   }
-
-  const handleDeleteEducation = async (id, candidateId) => {
-
-    try {
-      const res = await axios.delete(`/deleteEducation?id=${id}&candId=${candidateId}`)
-      window.location.reload();
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleDeleteWorkExp = async (id, candidateId) => {
-
-    try {
-      const res = await axios.delete(`/deleteWorkExperience?id=${id}&candId=${candidateId}`)
-      window.location.reload();
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
 
 
 
@@ -77,10 +48,21 @@ function AdminCandidateProfile() {
   return (
     <>
       <div className='grid justify-items-center'>
-
+        <div className='flex mt-16' >
+          <button onClick={() => handleGoodFit('goodFit')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
+            GOOD FIT
+          </button>
+          <button onClick={() => handleGoodFit('mayBe')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
+            MAY BE
+          </button>
+          <button onClick={() => handleGoodFit('notFit')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
+            NOT FIT
+          </button>
+        </div>
+    
         {/* PROFILE SECTION START */}
         <div className='container flex flex-col w-10/12 h-5/6 bg-slate-200 rounded-2xl shadow-md my-12 mx-10'>
-          <div className='flex justify-around'>
+          <div className='justify-between'>
             <p className='font-sans text-2xl font-bold mx-10 mt-7 text-left'>
               Profile
             </p>
@@ -88,7 +70,7 @@ function AdminCandidateProfile() {
               Save
             </button> */}
           </div>
-          <form onSubmit={handleProfileupdate} className='container grid grid-cols-2 mt-10 justify-items-center '>
+          <form className='container grid grid-cols-2 mt-10 justify-items-center '>
 
 
             <div className='flex flex-col'>

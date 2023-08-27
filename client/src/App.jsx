@@ -1,7 +1,9 @@
 
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 import './App.css'
+import "react-datepicker/dist/react-datepicker.css"
 import PrivateRoute from './utils/PrivateRoute'
+import PrivateRouteAdmin from './utils/PrivateRouteAdmin'
 import Home from './Pages/Home/Home'
 import Login from './Pages/Login/Login'
 import DashboardCandidate from './Pages/DashboardCandidate/DashboardCandidate'
@@ -29,7 +31,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>       
+        <Routes>
 
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -51,12 +53,18 @@ function App() {
           <Route path="/admin_login" element={<AdminLogin />} />
           <Route path='/admin_register' element={<AdminRegister />} />
           <Route path='/admin_verify_otp' element={<AdminVerifyOtp />} />
-          <Route path='/admin_dashboard' element={<AdminDashboard />} />
-          <Route path='/admin_job_post' element={<AdminJobVacancyPost />} />
-          <Route path='/admin_job_vacancy_list' element={<AdminJobVacancyListPage />} />
-          <Route path='/admin_job_applied_candidate_list/:jobId' element={<AdminJobAppliedPage />} />
-          <Route path='/admin_job_applied_candidate_profile/:candidateId' element={< AdminCandidateProfilePage />} />
-          <Route path='/admin_leave_application_list' element={< AdminLeaveApplicationPage />} />
+
+          <Route element={< PrivateRouteAdmin />}>
+            <Route path='/admin_dashboard' element={<AdminDashboard />} />
+            <Route path='/admin_job_post' element={<AdminJobVacancyPost />} />
+            <Route path='/admin_job_vacancy_list' element={<AdminJobVacancyListPage />} />
+            <Route path='/admin_job_applied_candidate_list/:jobId' element={<AdminJobAppliedPage />} />
+            <Route path='/admin_job_applied_candidate_profile/:candidateId/:jobId' element={< AdminCandidateProfilePage />} />
+            <Route path='/admin_leave_application_list' element={< AdminLeaveApplicationPage />} />
+
+          </Route>
+
+          
         </Routes>
       </BrowserRouter>
     </>
