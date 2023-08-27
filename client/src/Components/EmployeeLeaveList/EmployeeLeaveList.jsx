@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import axios from "../../Services/axiosInterceptor"
+import { format, parseISO } from 'date-fns'
 
 function EmployeeLeaveList() {
 
@@ -56,8 +57,8 @@ function EmployeeLeaveList() {
           <tbody>
             {leaveList.map((leave, index) => (
               <tr key={index} className="bg-white">
-                <td className="border border-gray-400 px-4 py-2">{leave.fromDate}</td>
-                <td className="border border-gray-400 px-4 py-2">{leave.toDate}</td>
+                <td className="border border-gray-400 px-4 py-2">{format(parseISO(leave.fromDate), "dd/MM/yyyy")}</td>
+                <td className="border border-gray-400 px-4 py-2">{format(parseISO(leave.toDate), "dd/MM/yyyy")}</td>
                 <td className="border border-gray-400 px-4 py-2">{leave.reason}</td>
                 <td className="border border-gray-400 px-4 py-2">{leave.status}</td>
               </tr>
