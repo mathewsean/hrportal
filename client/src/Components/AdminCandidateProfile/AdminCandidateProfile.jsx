@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from '../../Services/axiosInterceptor';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
+import { parseISO, format } from "date-fns";
 
 function AdminCandidateProfile() {
 
@@ -20,7 +21,7 @@ function AdminCandidateProfile() {
         const res = await axios.get(`/admin/job_applied_candidate_details?id=${candidateId}`)
 
         if (res.status === 200) {
-          setCandidate(res.data.getCandidate)
+          setCandidate(res.data.getCandidate)          
           setEducation(res.data.getCandidate.education)
           setWorkExperience(res.data.getCandidate.workExperience)
         }
@@ -34,12 +35,28 @@ function AdminCandidateProfile() {
 
   }, [])
 
+  useEffect(() => {
+    async function findStatusOfApplication(){
+      try {
+
+        const res = axios.get(`/admin/job_application_status/${candidateId}/${jobId}`)
+        
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    findStatusOfApplication()
+  },[])
+
   const handleGoodFit = async(status) =>{
 
-    
-    
-    console.log(status);
+    try {
 
+
+      
+    } catch (error) {
+      
+    }
   }
 
 
@@ -191,14 +208,14 @@ function AdminCandidateProfile() {
                 <div className='flex flex-col'>
                   <label className='font-sans text-black mt-2 font-bold'>From Date</label>
                   <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg'>
-                    {education.fromDate}
+                    {format(parseISO(education.fromDate),"dd/MM/yyyy")}
                   </p>
                 </div>
 
                 <div className='flex flex-col mb-10'>
                   <label className='font-sans text-black mt-2 font-bold'>To Date</label>
                   <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg'>
-                    {education.toDate}
+                    {format(parseISO(education.toDate), "dd/MM/yyyy")}
                   </p>
                 </div>
 
@@ -246,18 +263,22 @@ function AdminCandidateProfile() {
 
                 <div className='flex flex-col'>
                   <label className='font-sans text-black mt-2 font-bold'>From Date</label>
-                  <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg' >{workExperience.fromDate}</p>
+                  <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg' >
+                    {format(parseISO(workExperience.fromDate), "dd/MM/yyyy")}
+                    </p>
                   {/* <p datepicker type="text" className='w-96 h-10 bg-white font-sans text-black mt-2 rounded-md shadow-lg' placeholder='  Enter To Date'></p>  */}
                 </div>
 
                 <div className='flex flex-col'>
                   <label className='font-sans text-black mt-2 font-bold'>To Date</label>
-                  <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg' >{workExperience.toDate}</p>
+                  <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg' >
+                    {format(parseISO(workExperience.toDate), "dd/MM/yyyy")}
+                    </p>
                 </div>
 
                 <div className='flex flex-col'>
                   <label className='font-sans text-black mt-2 font-bold'>Job Description</label>
-                  <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg mb-10' >{workExperience.description}</p>
+                  <p className='px-2 py-2 w-96 max-h-full  bg-white font-sans text-black rounded-md shadow-lg mb-10' >{workExperience.description}</p>
                   {/* <textarea className="resize-y rounded-md w-9/12 h-1/3 mb-10" ></textarea> */}
                 </div>
 

@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator'
 import Candidate from '../models/candidateModel.js'
 import bycrptjs from 'bcryptjs'
 import otpGenerator from 'otp-generator' 
@@ -9,6 +10,11 @@ dotenv.config()
 //To register a candidate using first name, last name, email, password.
 export const registerCandidate = async(req,res) => {
   try {
+
+    const result = validationResult(req)
+    if(!result.isEmpty()){
+      return res.status(400).json({error: result.array()})
+    }
 
     const { firstName, lastName, emailId, password } = req.body
     const existingCandidate = await Candidate.findOne({emailId:emailId})
@@ -71,6 +77,7 @@ export const registerCandidate = async(req,res) => {
 
 export const verifyOTP = async(req,res) => {
   try {
+    
     const {emailId, otp} = req.body
 
     const findOTP = await Candidate.findOne({emailId:emailId})
@@ -95,6 +102,12 @@ export const verifyOTP = async(req,res) => {
 
 export const login = async(req, res) => {
   try {
+
+    const result = validationResult(req)
+    if(!result.isEmpty()){
+      return res.status(400).json({error: result.array()})
+    }
+    
     const {emailId, password} = req.body
 
     const candidate = await Candidate.findOne({emailId:emailId})

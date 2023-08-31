@@ -1,4 +1,8 @@
 import express from 'express'
+import {
+  validatorRegisterCandidate,
+  validatorCandidateLogin
+} from '../middlewares/expressValidator.js'
 import { verifyToken } from '../middlewares/auth.js'
 import {registerCandidate, verifyOTP, login} from '../controllers/authController.js'
 import {
@@ -22,16 +26,17 @@ import {
 
 const candidate_router = express.Router()
 
-candidate_router.post('/register', registerCandidate)
+candidate_router.post('/register',validatorRegisterCandidate ,registerCandidate) 
 candidate_router.post('/verifyOtp', verifyOTP)
 candidate_router.post('/login', login)    
+
 candidate_router.patch('/profile',verifyToken, updateProfile)
 candidate_router.patch('/education',verifyToken, updateEducation) 
 candidate_router.patch('/workexperience',verifyToken, updateWorkExperience)    
 candidate_router.patch('/jobApply',verifyToken, jobApply) 
+
 candidate_router.delete('/deleteEducation',verifyToken, deleteFromEducation)
 candidate_router.delete('/deleteWorkExperience',verifyToken, deleteFromWorkExperience)
-
 
 candidate_router.get('/getJobList', verifyToken ,findJobVacancyList)
 candidate_router.get('/getJobDetails/:id', verifyToken, findJobDetails) 

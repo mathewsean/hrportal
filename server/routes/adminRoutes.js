@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"
 import {
   adminLogin, 
   registerAdmin, 
@@ -7,7 +7,9 @@ import {
   jobPostNew, 
   findListOfJobApplication, 
   getCandidate, 
-  updateJobApplicationStatus} from "../controllers/adminJobVacancyController.js"
+  updateJobApplicationStatus,
+  getApplicationStatus
+} from "../controllers/adminJobVacancyController.js"
 import {findJobVacancyList} from "../controllers/jobController.js"
 import { getLeaveApplications, updateLeaveStatus } from "../controllers/leaveApplicationController.js";
 
@@ -26,6 +28,7 @@ admin_router.get('/job_vacancylist', findJobVacancyList)
 admin_router.get('/job_applied_candidates_list', findListOfJobApplication)
 admin_router.get('/job_applied_candidate_details', getCandidate)
 admin_router.get('/leave_application_list', getLeaveApplications)
+admin_router.get(`/job_application_status/:candidateId/:jobId`, getApplicationStatus)
 
 
 

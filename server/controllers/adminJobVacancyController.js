@@ -103,3 +103,9 @@ export const updateJobApplicationStatus = async(req, res) => {
   }
 }
 
+
+// To get the status of application
+
+export const getApplicationStatus = async(req, res) => {
+
+}
