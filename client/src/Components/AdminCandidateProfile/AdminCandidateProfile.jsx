@@ -6,11 +6,31 @@ import { parseISO, format } from "date-fns";
 
 function AdminCandidateProfile() {
 
-
+  const [status, setStatus] = useState("")
+  console.log("STATUS", status);
   const [candidate, setCandidate] = useState({})
   const [education, setEducation] = useState([])
   const [workExperience, setWorkExperience] = useState([])
   const { candidateId, jobId } = useParams()
+
+  useEffect(() => {
+    async function findStatusOfApplication() {
+      try {
+
+        const res = await axios.get(`/admin/job_application_status/${candidateId}/${jobId}`)
+
+        if (res.status === 200) {
+          setStatus(res.data)
+        }
+
+        console.log('findStatus Of Application', res.data);
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    findStatusOfApplication()
+  }, [status]) 
 
 
   useEffect(() => {
@@ -21,7 +41,7 @@ function AdminCandidateProfile() {
         const res = await axios.get(`/admin/job_applied_candidate_details?id=${candidateId}`)
 
         if (res.status === 200) {
-          setCandidate(res.data.getCandidate)          
+          setCandidate(res.data.getCandidate)
           setEducation(res.data.getCandidate.education)
           setWorkExperience(res.data.getCandidate.workExperience)
         }
@@ -35,27 +55,22 @@ function AdminCandidateProfile() {
 
   }, [])
 
-  useEffect(() => {
-    async function findStatusOfApplication(){
-      try {
+  
 
-        const res = axios.get(`/admin/job_application_status/${candidateId}/${jobId}`)
-        
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    findStatusOfApplication()
-  },[])
-
-  const handleGoodFit = async(status) =>{
-
+  const handleGoodFit = async (status) => {
     try {
 
+      setStatus(status)
 
-      
+      const res = await axios.patch(`/admin/update_job_application_status/${candidateId}/${jobId}`, { status })
+
+
+      console.log('res', res.data);
+
+
     } catch (error) {
-      
+      console.error(error)
+
     }
   }
 
@@ -66,17 +81,31 @@ function AdminCandidateProfile() {
     <>
       <div className='grid justify-items-center'>
         <div className='flex mt-16' >
-          <button onClick={() => handleGoodFit('goodFit')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
-            GOOD FIT
-          </button>
-          <button onClick={() => handleGoodFit('mayBe')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
-            MAY BE
-          </button>
-          <button onClick={() => handleGoodFit('notFit')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
-            NOT FIT
-          </button>
+          {status === "goodFit" ?
+            null
+            :
+            <button onClick={() => handleGoodFit('goodFit')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
+              GOOD FIT
+            </button>
+          }
+
+          {status === "mayBe" ?
+            null
+            :
+            <button onClick={() => handleGoodFit('mayBe')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
+              MAY BE
+            </button>
+          }
+
+          {status === 'notAFit' ?
+            null
+            :
+            <button onClick={() => handleGoodFit('notAFit')} className='bg-cyan-300 text-white font-sans font-bold px-4 py-1 rounded-md mx-10 shadow-lg'>
+              NOT FIT
+            </button>
+          }
         </div>
-    
+
         {/* PROFILE SECTION START */}
         <div className='container flex flex-col w-10/12 h-5/6 bg-slate-200 rounded-2xl shadow-md my-12 mx-10'>
           <div className='justify-between'>
@@ -208,7 +237,7 @@ function AdminCandidateProfile() {
                 <div className='flex flex-col'>
                   <label className='font-sans text-black mt-2 font-bold'>From Date</label>
                   <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg'>
-                    {format(parseISO(education.fromDate),"dd/MM/yyyy")}
+                    {format(parseISO(education.fromDate), "dd/MM/yyyy")}
                   </p>
                 </div>
 
@@ -265,7 +294,7 @@ function AdminCandidateProfile() {
                   <label className='font-sans text-black mt-2 font-bold'>From Date</label>
                   <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg' >
                     {format(parseISO(workExperience.fromDate), "dd/MM/yyyy")}
-                    </p>
+                  </p>
                   {/* <p datepicker type="text" className='w-96 h-10 bg-white font-sans text-black mt-2 rounded-md shadow-lg' placeholder='  Enter To Date'></p>  */}
                 </div>
 
@@ -273,7 +302,7 @@ function AdminCandidateProfile() {
                   <label className='font-sans text-black mt-2 font-bold'>To Date</label>
                   <p className='px-2 py-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg' >
                     {format(parseISO(workExperience.toDate), "dd/MM/yyyy")}
-                    </p>
+                  </p>
                 </div>
 
                 <div className='flex flex-col'>

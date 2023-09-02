@@ -1,6 +1,7 @@
 import axios from '../../Services/axiosInterceptor';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import {format, parseISO} from 'date-fns'
 
 function AdminJobVacancyList() {
 
@@ -25,8 +26,9 @@ function AdminJobVacancyList() {
     <>
 
       <div className="mx-auto w-3/4 p-8">
-        <p className='font-sans font-bold text-xl'>Job Vacancy</p>
-        <br></br>
+        <p className='font-sans font-bold text-xl mt-10 text-center rounded-md bg-slate-100 py-3'>Job Vacancy</p>
+        
+        
         <table className="min-w-full table-auto border-collapse border border-gray-400">
           <thead>
             <tr className="bg-gray-200">
@@ -45,7 +47,7 @@ function AdminJobVacancyList() {
                 <td className="border border-gray-400 px-4 py-2">{jobVacancy.location}</td>
                 <td className="border border-gray-400 px-4 py-2">{jobVacancy.salaryMin}</td>
                 <td className="border border-gray-400 px-4 py-2">{jobVacancy.salaryMax}</td>
-                <td className="border border-gray-400 px-4 py-2">{jobVacancy.expiry}</td>
+                <td className="border border-gray-400 px-4 py-2">{format(parseISO(jobVacancy.expiry), "dd/MM/yyyy")}</td> 
                 <td className="border border-gray-400 text-center">
 
                   <Link to={`/admin_job_applied_candidate_list/${jobVacancy._id}`}>
