@@ -79,11 +79,25 @@ export const addDesignation = async(req, res) => {
         } else {
           return res.status(500).json({message: "Please try again"})
         }
-
       }
     }
 
+    
+  } catch (error) {
+    return res.status(500).json({error:error.message})
+  }
+}
 
+//To get the list of department in the company
+
+export const getDepartment = async(req, res) => {
+  try {
+
+    const getDepartmentList = await Department.find()
+
+    if(getDepartmentList){
+      return res.status(200).json(getDepartmentList)
+    }
     
   } catch (error) {
     return res.status(500).json({error:error.message})

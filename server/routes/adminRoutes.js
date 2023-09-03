@@ -12,7 +12,7 @@ import {
 } from "../controllers/adminJobVacancyController.js"
 import {findJobVacancyList} from "../controllers/jobController.js"
 import { getLeaveApplications, updateLeaveStatus } from "../controllers/leaveApplicationController.js";
-import {getEmployee, createDepartment, addDesignation} from "../controllers/adminEmployeeController.js"
+import {getEmployee, createDepartment, addDesignation, getDepartment} from "../controllers/adminEmployeeController.js"
 
  
 const admin_router = express.Router()
@@ -33,6 +33,7 @@ admin_router.get('/job_applied_candidate_details', getCandidate)
 admin_router.get('/leave_application_list', getLeaveApplications)
 admin_router.get(`/job_application_status/:candidateId/:jobId`, getApplicationStatus)
 admin_router.get('/employee_list', getEmployee)
+admin_router.get('/department_list', getDepartment)
 
 
 
