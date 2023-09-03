@@ -1,8 +1,6 @@
 import JobVacancy from "../models/jobVacancyModel.js";
-import Job from "../models/jobVacancyModel.js"
 import JobApplied from "../models/jobAppliedModel.js";
 import Candidate from "../models/candidateModel.js"
-import { populate } from "dotenv";
 
 //To add a new job post by admin
 export const jobPostNew = async (req, res) => {

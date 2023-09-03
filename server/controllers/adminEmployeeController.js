@@ -1,0 +1,91 @@
+import Candidate from "../models/candidateModel.js";
+import Department from "../models/departmentModel.js";
+import { login } from "./authController.js";
+
+// To get list of employees for admin
+export const getEmployee = async(req, res) => {
+  try {
+
+    const getEmployeeData = await Candidate.find({isEmployee:true})
+
+    if(getEmployeeData){
+      return res.status(200).json(getEmployeeData)
+    } else {
+      return res.status(200).json({message: "Employee Not Found"})
+    }
+    
+  } catch (error) {
+    return res.status(500).json({message: "No data Found"})
+  }
+}
+
+//To create a department
+
+export const createDepartment = async(req, res) => {
+  try {
+
+    const {department} = req.body
+    const departmentName = department.toUpperCase().trim()
+    console.log(departmentName);
+
+    const findExistingDepartment = await Department.findOne({departmentName:departmentName})
+
+    if(!findExistingDepartment){
+
+      const createNewDepartment = await Department.create({
+        departmentName: departmentName
+      })
+
+      if(createNewDepartment){
+        return res.status(200).json({message:"New Department Created Successfully"})
+      }
+
+    } else {
+
+      return res.status(400).json({message: "Existing Department Add New Department"})
+
+    }   
+    
+  } catch (error) {
+    return res.status(500).json({error: error.message})
+  }
+}
+
+//To add a designation in a department
+
+export const addDesignation = async(req, res) => {
+  try {
+
+    const {departmentId} = req.params
+    const {designation} = req.body
+    const designationName = designation.toUpperCase().trim()
+
+    const findDepartment = await Department.findOne({_id:departmentId})
+
+    if(findDepartment){
+      if(findDepartment.designation.includes(designationName)){
+
+        return res.status(400).json({message:"Exisiting Designation"})
+
+      } else {
+
+        const addNewDesignation = await Department.findOneAndUpdate(
+          {_id:departmentId},
+          {$push:{designation:designationName}}
+        )
+
+        if(addNewDesignation){
+          return res.status(200).json({message:"New Designation Added Succesfully"})
+        } else {
+          return res.status(500).json({message: "Please try again"})
+        }
+
+      }
+    }
+
+
+    
+  } catch (error) {
+    return res.status(500).json({error:error.message})
+  }
+}

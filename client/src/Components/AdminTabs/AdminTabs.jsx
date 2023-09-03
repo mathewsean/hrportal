@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function AdminTabs() { 
+function AdminTabs() {
 
   return (
     <>
@@ -17,18 +17,21 @@ function AdminTabs() {
         </Link>
 
         <Link to={'/admin_job_vacancy_list'}>
-        <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
-          <p className='text-white font-bold text-lg text-center'>
-            JOB APPLICATION
-          </p>
-        </button>
+          <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
+            <p className='text-white font-bold text-lg text-center'>
+              JOB APPLICATION
+            </p>
+          </button>
         </Link>
 
-        <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
-          <p className='text-white font-bold text-lg text-center'>
-            EMPLOYEES
-          </p>
-        </button>
+        <Link to={'/admin_employee_list'}>
+          <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
+            <p className='text-white font-bold text-lg text-center'>
+              EMPLOYEES
+            </p>
+          </button>
+        </Link>
+
         <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
           <p className='text-white font-bold text-lg text-center'>
             DEPARTMENTS
@@ -36,12 +39,12 @@ function AdminTabs() {
         </button>
 
         <Link to={'/admin_leave_application_list'}>
-        <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
-          <p className='text-white font-bold text-lg text-center'>
-            LEAVE APPLICATION APPROVAL
-          </p>
-        </button>
-        </Link> 
+          <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
+            <p className='text-white font-bold text-lg text-center'>
+              LEAVE APPLICATION APPROVAL
+            </p>
+          </button>
+        </Link>
 
         <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
           <p className='text-white font-bold text-lg text-center'>

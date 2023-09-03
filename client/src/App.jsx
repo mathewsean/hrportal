@@ -24,6 +24,7 @@ import AdminCandidateProfilePage from './Pages/AdminCandidateProfilePage/AdminCa
 import EmployeeLeavePage from './Pages/EmployeeLeavePage/EmployeeLeavePage'
 import EmployeeLeavePostPage from './Pages/EmployeeLeavePostPage/EmployeeLeavePostPage'
 import AdminLeaveApplicationPage from './Pages/AdminLeaveApplicationPage/AdminLeaveApplicationPage'
+import AdminEmployeeListPage from './Pages/AdminEmployeeListPage/AdminEmployeeListPage'
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
             <Route path='/admin_job_applied_candidate_list/:jobId' element={<AdminJobAppliedPage />} />
             <Route path='/admin_job_applied_candidate_profile/:candidateId/:jobId' element={< AdminCandidateProfilePage />} />
             <Route path='/admin_leave_application_list' element={< AdminLeaveApplicationPage />} />
+            <Route path='/admin_employee_list' element={<AdminEmployeeListPage />} />
 
           </Route>
 
