@@ -9,17 +9,14 @@ function DashboardCandidate() {
 
   const token = localStorage.getItem('token')
   const [employeeStatus, setEmployeeStatus] = useState(false)
-  console.log('EmployeeStatus',employeeStatus);
-  
-  
+   
   useEffect(() => {
 
     async function isEmployee(){
       const {id} = jwt_decode(token)     
 
       const res = await axios.get(`/statusOfEmployee?id=${id}`)      
-      console.log(res.data.isEmployee);
-
+      
       if(res.data.isEmployee){
         setEmployeeStatus(true)
       } else {

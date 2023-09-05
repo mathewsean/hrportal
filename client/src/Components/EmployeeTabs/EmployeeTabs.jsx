@@ -7,52 +7,66 @@ function EmployeeTabs() {
 
   const token = localStorage.getItem('token')
   const employeeId = jwtDecode(token).id
- 
-  const [clockedIn, setClockedIn] = useState(false)  
 
-  useEffect(() =>{
+  const [isLoading, setIsLoading] = useState(false)
+  const [clockedIn, setClockedIn] = useState(false)
+  console.log("clockedIn", clockedIn);
+  const [viewClockIn, setViewClockIn] = useState(true)
+  console.log('viewClockIn', viewClockIn);
+  const [errorMessage, setErrorMessage] = useState('')
+  console.log('errorMesg', errorMessage);
 
-    async function getClockInStatus(){
+
+
+  useEffect(() => {
+
+    async function getClockInStatus() {
       try {
+
+        setIsLoading(false)
 
         const res = await axios.get(`/get_clokedIn_status/${employeeId}`)
 
-        if(res.status === 200){
-          setClockedIn(res.data.message)         
+        if (res.status === 200) {
+          setClockedIn(res.data.message)
         }
 
+        setIsLoading(true)
+
       } catch (error) {
-        console.log(error.message);
+        console.log("useEffect", error.message);
       }
     }
 
     getClockInStatus()
 
-  },[])
+  }, [viewClockIn])
 
-  const handleClockIn = async() => {
+  const handleClockIn = async () => {
     try {
 
       const res = await axios.post(`/employee_clockIn/${employeeId}`)
-      
+      console.log("resHandleClockIn", res);
+
+      setViewClockIn(false)
+
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
+      setErrorMessage(error.response.data.message)
     }
   }
 
-  const handleClockOut = async() => {
+  const handleClockOut = async () => {
     try {
 
       const res = await axios.patch(`/employee_clockOut/${employeeId}`)
-      
+
+      setViewClockIn(true)
+
     } catch (error) {
-      console.log(error.message);
+      console.log("handleClockOut", error.message);
     }
   }
-
-
-
-
 
   return (
     <>
@@ -60,23 +74,26 @@ function EmployeeTabs() {
       <div className='container mx-auto px-20 pt-10 grid grid-cols-4 gap-y-5'>
 
         {clockedIn ?
-          <button 
-          className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'
-          onClick={handleClockOut}
-          >
-            <p className='text-white font-bold text-lg text-center'>
-              CLOCK OUT
-            </p>
-          </button>
-          :
-          <button 
-          className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'
-          onClick={handleClockIn}
-          >
-            <p className='text-white font-bold text-lg text-center'>
-              CLOCK IN
-            </p>
-          </button>
+            <button
+              className='w-60 h-60 bg-cyan-300 rounded-2xl flex justify-center items-center'
+              onClick={handleClockOut}
+            >
+              <p className='text-black font-bold text-lg text-center'>
+                CLOCK OUT
+              </p>
+            </button>
+            :
+            <button
+              className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'
+              onClick={handleClockIn}
+            >
+              <div className='flex flex-col'>
+                <p className='text-white font-bold text-lg text-center'>
+                  CLOCK IN
+                </p>
+                {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
+              </div>
+            </button>
         }
 
 

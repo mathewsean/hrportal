@@ -5,10 +5,24 @@ export const clockIn = async (req, res) => {
   try {
 
     const { employeeId } = req.params
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
 
     const findEmployee = await Candidate.findOne({ _id: employeeId })
 
     if (findEmployee.isEmployee) {
+
+      const alreadyClockedIn = await Attendance.findOne({
+        employeeId: employeeId,
+        clockIn: {
+          $gte: today,
+          $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000)
+        }
+      })
+
+      if(alreadyClockedIn){
+        return res.status(400).json({message: "You cant Clock In again today"})
+      }
 
 
       const clockedIn = await Attendance.create({ 
