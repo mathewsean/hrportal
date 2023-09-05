@@ -59,6 +59,10 @@ export const addDesignation = async(req, res) => {
     const {departmentId} = req.params
     const {designation} = req.body
     const designationName = designation.toUpperCase().trim()
+    
+    if(designation === ""){
+      return res.status(400).json({message: "Empty value"})
+    }
 
     const findDepartment = await Department.findOne({_id:departmentId})
 

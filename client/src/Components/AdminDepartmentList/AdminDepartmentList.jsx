@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import axios from '../../Services/axiosInterceptor'
 
 function AdminDepartmentList() {
 
+
   const [department, setDepartment] = useState([])
+  const [designation, setDesignation] = useState('')  
+  const [errorMessage, setErrorMessage] = useState('')
+  console.log('Designation', designation);
   console.log('department', department);
 
   useEffect(() => {
@@ -26,14 +30,30 @@ function AdminDepartmentList() {
 
     getDepartmentList()
 
-  }, [])
+  }, [department])
+
+  async function handleAddDesignation(departmentId) {
+    try {
+
+      const res = await axios.post(`/admin/add_new_designation/${departmentId}`, { designation })    
+
+    } catch (error) {
+
+      console.error(error.response.data.message);
+      setErrorMessage(error.response.data.message)
+
+    }
+  }
 
 
   return (
     <>
 
       <div className="mx-auto w-3/4 p-8">
-        <p className='font-sans font-bold text-xl mt-10 text-center rounded-md bg-slate-100 py-3'>Department</p>
+        <div className='text-center'>
+        {errorMessage && <span className='text-center text-red-500  py-3'>{errorMessage}</span>} 
+        </div>
+        <p className='font-sans font-bold text-xl text-center rounded-md bg-slate-100 py-3'>Department</p>
 
         <table className="min-w-full table-auto border-collapse border border-gray-400">
           <thead>
@@ -55,15 +75,19 @@ function AdminDepartmentList() {
                 </td>
 
                 <td className="border border-gray-400 text-center">
-                  <input type="text"
-                    className='px-2 my-2 w-50 h-10 bg-white font-sans text-black rounded-md shadow-lg'
-                    name='designation'
-                    // onChange={(e) => setEmailId(e.target.value)}
-                    placeholder='Enter Designation' />
+                  <form onSubmit={(e) => {
+                    e.preventDefault()
+                    handleAddDesignation(department._id)
+                  }}>
+                    <input
+                      type="text"
+                      className='px-2 my-2 w-50 h-10 bg-white font-sans text-black rounded-md shadow-lg'
+                      name='designation'
+                      onChange={(e) => setDesignation(e.target.value)}
+                      placeholder='Enter Designation' />
 
-                  
                     <button className='bg-sky-700 text-white ml-3 px-4 py-1 rounded-md'>ADD</button>
-                  
+                  </form>
 
                 </td>
               </tr>
