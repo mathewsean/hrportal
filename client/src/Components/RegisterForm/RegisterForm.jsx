@@ -24,12 +24,14 @@ const initialValues = {
 
 function RegisterForm() {
 
+  const [emailId, setEmailId] = useState('')
+
   const [isVerified, setIsVerified] = useState(false)
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: initialValues,
     validationSchema: registerSchema,
-    onSubmit: (values) => {
+    onSubmit: (values) => {     
 
       async function handleRegistration() {
 
@@ -39,6 +41,7 @@ function RegisterForm() {
 
           if (res.status == 200) {
             setIsVerified(true)
+            setEmailId(values.emailId)
           } else {
             setIsVerified(false)
           }
@@ -53,7 +56,7 @@ function RegisterForm() {
   })
 
   if (isVerified) {
-    return <Navigate to="/verify_Otp" />;
+    return <Navigate to={`/verify_Otp/${emailId}` }/>;
   }
 
 

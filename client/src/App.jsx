@@ -35,10 +35,17 @@ function App() {
       <BrowserRouter>
         <Routes>
 
+          {/* <Route element={<LoggedInUserRoute />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<RegisterCandidate />} />
+            <Route path="/verify_Otp" element={<VerifyOTP />} />
+          </Route> */}
+
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterCandidate />} />
-          <Route path="/verify_Otp" element={<VerifyOTP />} />
+          <Route path="/verify_Otp/:emailId" element={<VerifyOTP />} /> 
 
           <Route element={<PrivateRoute />}>
             <Route path="/candidateDashboard" element={<DashboardCandidate />} />
@@ -54,7 +61,7 @@ function App() {
 
           <Route path="/admin_login" element={<AdminLogin />} />
           <Route path='/admin_register' element={<AdminRegister />} />
-          <Route path='/admin_verify_otp' element={<AdminVerifyOtp />} />
+          <Route path='/admin_verify_otp/:emailId' element={<AdminVerifyOtp />} /> 
 
           <Route element={< PrivateRouteAdmin />}>
             <Route path='/admin_dashboard' element={<AdminDashboard />} />
@@ -68,7 +75,7 @@ function App() {
 
           </Route>
 
-          
+
         </Routes>
       </BrowserRouter>
     </>

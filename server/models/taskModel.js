@@ -27,6 +27,10 @@ const taskSchema = mongoose.Schema({
     type: String,
     enum: ["Pending", "Work in Progress", "Completed"],
     default: "Pending"
+  },
+  isActive:{
+    type:Boolean,
+    default: true
   }
 
 })

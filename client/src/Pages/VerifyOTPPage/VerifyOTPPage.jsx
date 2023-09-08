@@ -1,16 +1,23 @@
 import React from 'react'
+import { Navigate } from "react-router-dom"
 import Navigation from '../../Components/Navigation/Navigation'
 import OtpForm from '../../Components/OtpForm/OtpForm'
 
 
 function VerifyOTPPage() {
+  const token = localStorage.getItem('token')
   return (
-
     <>
-    <Navigation />
-    <OtpForm/>
+      {token ?
+        <Navigate to="/candidateDashboard" />
+        :
+        <>
+          <Navigation />
+          <OtpForm />
+        </>
+      }
     </>
-    
+
   )
 }
 

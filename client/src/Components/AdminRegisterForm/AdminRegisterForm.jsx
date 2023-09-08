@@ -25,7 +25,7 @@ function AdminRegisterForm() {
 
   // const [firstName, setFirstName] = useState('')
   // const [lastName, setLastName] = useState('')
-  // const [emailId, setEmailId] = useState('')
+  const [emailId, setEmailId] = useState('')
   // const [password, setPassword] = useState('')
   const [isVerified, setIsVerified] = useState(false)
 
@@ -33,6 +33,7 @@ function AdminRegisterForm() {
     initialValues: initialValues,
     validationSchema: registerSchema,
     onSubmit: (values) => {
+
 
       async function handleRegistration() {
 
@@ -42,6 +43,7 @@ function AdminRegisterForm() {
 
           if (res.status == 200) {
             setIsVerified(true)
+            setEmailId(values.emailId)
           } else {
             setIsVerified(false)
           }
@@ -83,12 +85,8 @@ function AdminRegisterForm() {
   // }
 
   if (isVerified) {
-    return <Navigate to="/admin_verify_otp" />;
-  }
-
-
-
-
+    return <Navigate to= {`/admin_verify_otp/${emailId}`} />;
+  } 
 
   return (
     <div className='flex justify-center items-center h-screen '>

@@ -1,5 +1,6 @@
 import Candidate from "../models/candidateModel.js";
 import Department from "../models/departmentModel.js";
+import Task from "../models/taskModel.js"
 import { login } from "./authController.js";
 
 // To get list of employees for admin
@@ -103,6 +104,54 @@ export const getDepartment = async(req, res) => {
       return res.status(200).json(getDepartmentList)
     }
     
+  } catch (error) {
+    return res.status(500).json({error:error.message})
+  }
+}
+
+export const addNewTask = async(req, res) => {
+  try {
+
+    const {
+      taskName, 
+      employeeId, 
+      startDate,
+      endDate
+    } = req.body
+
+    const addTask = await Task.create({
+      taskName: taskName,
+      employeeId: employeeId,
+      createdAt: Date.now(),
+      startDate: startDate,
+      endDate: endDate
+    })
+
+    if(addTask){
+      return res.status(200).json({message:"New Task Added Successfully"})
+    }
+
+
+    
+  } catch (error) {
+    return res.status(500).json({error:error.message})
+  }
+}
+
+export const deactivateTask = async(req, res) => {
+  try {
+
+    const {taskId} = req.params
+
+    const deactivate = await Task.findOneAndUpdate(
+      {_id:taskId},
+      {$set:{isActive:false}}
+    )
+
+    if(deactivate){
+      return res.status(200).json({message:"Task deactivated successfully"})
+    }
+
   } catch (error) {
     return res.status(500).json({error:error.message})
   }

@@ -1,11 +1,11 @@
 import axios from '../../Services/axiosInterceptor'
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 
 function AdminOtpForm() {
-
   
-  const [emailId, setEmailId] = useState('')
+  const {emailId} = useParams()
+  console.log(emailId);
   const [otp, setOtp] = useState('')
   const [isVerified, setIsVerified] = useState(false)
 
@@ -45,12 +45,7 @@ function AdminOtpForm() {
         <form onSubmit={handleVerifyOtp} className='flex flex-col items-center w-2/4 h-2/5 bg-slate-200 rounded-3xl'>
 
           <label className='font-sans text-black text-3xl font-bold mt-10'>Verify OTP</label>
-
-          <input type="text"
-            className='w-96 h-10 bg-white font-sans text-black mt-2 rounded-md shadow-lg'
-            name='emailId' value={emailId}
-            onChange={(e) => setEmailId(e.target.value)}
-            placeholder='  Enter Email' />
+    
 
           <input type="text"
             className='w-96 h-10 bg-white font-sans text-black mt-2 rounded-md shadow-lg'
