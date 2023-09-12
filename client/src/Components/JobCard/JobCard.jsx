@@ -48,12 +48,16 @@ function JobCard() {
 
               <Link to={`/jobs/${job._id}`}>
               <button className='flex-col w-96 h-96 bg-slate-200 rounded-2xl shadow-md text-clip overflow-hidden ...'>
-                <p className='font-sans text-2xl font-bold mx-10 mt-7 text-left'>
+              <p className='font-sans font-bold mx-10 mt-7 text-left'>
+                  Job Vacancy Id: {job.job_Id}
+                </p>
+                <p className='font-sans text-2xl font-bold mx-10 mt-2 text-left'>
                   {job.jobTitle}
                 </p>
                 <p className='font-sans font-bold mx-10 mt-2 text-left'>
-                  {job.location}
+                  Location: {job.location}
                 </p>
+                
                 <p className='font-sans mx-10 text-left '>    
                   {job.jobDescription}  
                 </p>

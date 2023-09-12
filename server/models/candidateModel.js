@@ -61,8 +61,22 @@ const candidateSchema = mongoose.Schema({
   isEmployee:{
     type: Boolean,
     default: false
-  } 
+  },
+  designation:{
+    type: String,
+
+  },
+  department:{
+    type: String
+  },
+  basicSalary:{
+    type: Number
+  },
+  joiningDate:{
+    type: Date
+
+  }
 })
 
-const Candidate = mongoose.model('Candidate', candidateSchema)
+const Candidate = mongoose.model('Candidate', candidateSchema) 
 export default Candidate

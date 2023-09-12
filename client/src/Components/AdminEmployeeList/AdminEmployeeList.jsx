@@ -48,24 +48,24 @@ function AdminEmployeeList() {
               <th className="border border-gray-400 px-4 py-2">Department</th>
               <th className="border border-gray-400 px-4 py-2">Email Id</th>
               <th className="border border-gray-400 px-4 py-2">Contact No</th>
-              <th className="border border-gray-400 px-4 py-2">Action</th>
+              {/* <th className="border border-gray-400 px-4 py-2">Action</th> */}
             </tr>
           </thead>
           <tbody>
             {employeeList.map((employee, index) => (
               <tr key={index} className="bg-white">
                 <td className="border border-gray-400 px-4 py-2">{employee.firstName} {employee.lastName}</td>
-                <td className="border border-gray-400 px-4 py-2"></td>
-                <td className="border border-gray-400 px-4 py-2"></td>
+                <td className="border border-gray-400 px-4 py-2">{employee.designation}</td>
+                <td className="border border-gray-400 px-4 py-2">{employee.department}</td> 
                 <td className="border border-gray-400 px-4 py-2">{employee.emailId}</td>
                 <td className="border border-gray-400 px-4 py-2">{employee.contactNos}</td> 
-                <td className="border border-gray-400 text-center">
+                {/* <td className="border border-gray-400 text-center">
 
-                  {/* <Link >
+                  <Link >
                     <button className='bg-sky-700 text-white px-4 py-1 rounded-md'>VIEW</button>
-                  </Link> */}
+                  </Link>
 
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

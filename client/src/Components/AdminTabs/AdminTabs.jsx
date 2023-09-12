@@ -32,12 +32,12 @@ function AdminTabs() {
           </button>
         </Link>
 
-<Link to={'/admin_department_list'}>
-        <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
-          <p className='text-white font-bold text-lg text-center'>
-            DEPARTMENTS
-          </p>
-        </button>
+        <Link to={'/admin_department_list'}>
+          <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
+            <p className='text-white font-bold text-lg text-center'>
+              DEPARTMENTS
+            </p>
+          </button>
         </Link>
 
         <Link to={'/admin_leave_application_list'}>
@@ -53,11 +53,14 @@ function AdminTabs() {
             ATTENDANCE
           </p>
         </button>
-        <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
-          <p className='text-white font-bold text-lg text-center'>
-            TASK
-          </p>
-        </button>
+
+        <Link to={'/admin_task_list'}>
+          <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
+            <p className='text-white font-bold text-lg text-center'>
+              TASK
+            </p>
+          </button>
+        </Link>
       </div>
     </>
 

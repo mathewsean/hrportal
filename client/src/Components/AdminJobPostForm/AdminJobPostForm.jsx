@@ -103,7 +103,7 @@ function AdminJobPostForm() {
             <div className='flex flex-col'>
               <label className='font-sans text-black mt-2 font-bold'>Job Description</label>
               <textarea type="text"
-                className='px-2 w-96 h-10 bg-white font-sans text-black rounded-md shadow-lg'
+                className='px-2 w-96 h-48  bg-white font-sans text-black rounded-md shadow-lg'
                 name='jobDescription' value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder='Enter Job Description' />

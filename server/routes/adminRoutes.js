@@ -18,7 +18,9 @@ import {
   addDesignation, 
   getDepartment,
   addNewTask,
-  deactivateTask
+  deactivateTask,
+  convertCandidate,
+  getTaskList
 } from "../controllers/adminEmployeeController.js"
 
  
@@ -35,6 +37,7 @@ admin_router.post('/add_new_task', addNewTask)
 admin_router.patch('/leave_application_update_status', updateLeaveStatus )
 admin_router.patch('/update_job_application_status/:candidateId/:jobId', updateJobApplicationStatus)
 admin_router.patch('/deactivate_task/:taskId', deactivateTask)
+admin_router.patch('/convert_candidate/:candidateId', convertCandidate)
 
 admin_router.get('/job_vacancylist', findJobVacancyList)
 admin_router.get('/job_applied_candidates_list', findListOfJobApplication)
@@ -43,6 +46,7 @@ admin_router.get('/leave_application_list', getLeaveApplications)
 admin_router.get(`/job_application_status/:candidateId/:jobId`, getApplicationStatus)
 admin_router.get('/employee_list', getEmployee)
 admin_router.get('/department_list', getDepartment)
+admin_router.get('/task_list', getTaskList)
 
 
 

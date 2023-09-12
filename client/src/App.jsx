@@ -26,6 +26,10 @@ import EmployeeLeavePostPage from './Pages/EmployeeLeavePostPage/EmployeeLeavePo
 import AdminLeaveApplicationPage from './Pages/AdminLeaveApplicationPage/AdminLeaveApplicationPage'
 import AdminEmployeeListPage from './Pages/AdminEmployeeListPage/AdminEmployeeListPage'
 import AdminDepartmentPage from './Pages/AdminDepartmentPage/AdminDepartmentPage'
+import AdminEmployeeConvertPage from './Pages/AdminEmployeeConvertPage/AdminEmployeeConvertPage'
+import AdminTaskPage from './Pages/AdminTaskPage/AdminTaskPage'
+import AdminTaskPost from './Pages/AdminTaskPost/AdminTaskPost'
+
 
 
 function App() {
@@ -72,8 +76,12 @@ function App() {
             <Route path='/admin_leave_application_list' element={< AdminLeaveApplicationPage />} />
             <Route path='/admin_employee_list' element={<AdminEmployeeListPage />} />
             <Route path='/admin_department_list' element={<AdminDepartmentPage />} />
+            <Route path='/admin_employee_convert/:candidateId/:jobId' element={<AdminEmployeeConvertPage />} />     
+            <Route path='/admin_task_list' element={ <AdminTaskPage />} />     
+            <Route path='/admin_add_task_form' element={<AdminTaskPost />} />
 
           </Route>
+          
 
 
         </Routes>

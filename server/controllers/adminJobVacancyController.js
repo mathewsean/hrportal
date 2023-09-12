@@ -33,7 +33,7 @@ export const jobPostNew = async (req, res) => {
     }
 
   } catch (error) {
-    return res.status(400).json({ message: error.message })
+    return res.status(400).json({ message: error.message })  
   }
 }
 

@@ -7,35 +7,62 @@ function AdminDepartmentList() {
   const [department, setDepartment] = useState([])
   const [designation, setDesignation] = useState('')  
   const [errorMessage, setErrorMessage] = useState('')
+  const [newDepartment, setNewDepartment] = useState('')
+ 
   console.log('Designation', designation);
   console.log('department', department);
 
-  useEffect(() => {
-
-    async function getDepartmentList() {
-
-      try {
-        const res = await axios.get('/admin/department_list')
-
-        if (res.status === 200) {
-          console.log(res.data);
-          setDepartment(res.data)
-        }
-
-      } catch (error) {
-        console.error(error.message);
-      }
-
-    }
+  useEffect(() => {   
 
     getDepartmentList()
 
-  }, [department])
+  }, [])
+
+  async function getDepartmentList() {
+
+    try {
+      const res = await axios.get('/admin/department_list')
+
+      if (res.status === 200) {
+        console.log(res.data);
+        setDepartment(res.data)
+      }
+
+    } catch (error) {
+      console.error(error.message);
+    }
+
+  }
+
+  async function handleAddDepartment(){
+    try {
+
+      if(newDepartment !== null){
+
+      const res = await axios.post(`/admin/create_new_department`, {department:newDepartment}) 
+
+      if(res){
+        getDepartmentList()
+      }
+      
+      }
+      
+    } catch (error) {
+
+      console.error(error.response.data.message)
+      setErrorMessage(error.response.data.message)
+      
+    }
+  }
 
   async function handleAddDesignation(departmentId) {
     try {
 
-      const res = await axios.post(`/admin/add_new_designation/${departmentId}`, { designation })    
+      const res = await axios.post(`/admin/add_new_designation/${departmentId}`, { designation })   
+      
+      if(res){
+        getDepartmentList()
+      }
 
     } catch (error) {
 
@@ -54,6 +81,20 @@ function AdminDepartmentList() {
         {errorMessage && <span className='text-center text-red-500  py-3'>{errorMessage}</span>} 
         </div>
         <p className='font-sans font-bold text-xl text-center rounded-md bg-slate-100 py-3'>Department</p>
+
+        <form onSubmit={(e) => {
+                    e.preventDefault()
+                    handleAddDepartment()
+                  }}>
+                    <input
+                      type="text"
+                      className='px-2 my-2 w-50 h-10 bg-white font-sans text-black rounded-md shadow-lg'
+                      name='designation'
+                      onChange={(e) => setNewDepartment(e.target.value)}
+                      placeholder='Add Department' />
+
+                    <button className='bg-sky-700 text-white ml-3 px-4 py-1 rounded-md'>ADD</button>
+                  </form>
 
         <table className="min-w-full table-auto border-collapse border border-gray-400">
           <thead>

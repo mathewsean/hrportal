@@ -21,7 +21,7 @@ export const jobApply = async(req, res) => {
           createJobApplied._id,
           { $push: { pending:[candidateId] } }
           )
-        return res.status(200).json({message:"Job Applied Succesfully"})
+        return res.status(200).json({message:"Job Applied Succesfully"}) 
       }
     } else {
       

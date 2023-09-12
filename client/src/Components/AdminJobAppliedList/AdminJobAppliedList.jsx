@@ -40,6 +40,8 @@ function AdminJobAppliedList() {
 
   }, [jobId, view])
 
+  
+
   return (
     <>
 
@@ -189,6 +191,7 @@ function AdminJobAppliedList() {
                           <th className="border border-gray-400 px-4 py-2">Address</th>
                           <th className="border border-gray-400 px-4 py-2">Pincode</th>
                           <th className="border border-gray-400 px-4 py-2">Action</th>
+                          <th className="border border-gray-400 px-4 py-2">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -206,6 +209,11 @@ function AdminJobAppliedList() {
                                 <button className='bg-cyan-300 text-black font-sans font-bold px-4 py-1 rounded-md'>VIEW</button>
                               </Link>
 
+                            </td>
+                            <td className="border border-gray-400 px-4 py-2">
+                              <Link to={`/admin_employee_convert/${candidate._id}/${jobDetails._id}`}>
+                                <button className='bg-cyan-300 text-black font-sans font-bold px-4 py-1 rounded-md'>Convert to Employee</button>
+                              </Link>
                             </td>
                           </tr>
                         ))}
