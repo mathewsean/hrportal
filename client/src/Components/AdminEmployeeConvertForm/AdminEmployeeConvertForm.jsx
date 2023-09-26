@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
-import axios from '../../Services/axiosInterceptor'
+import axios from '../../Services/axiosInterceptorAdmin'
 import { Navigate, useParams } from 'react-router-dom'
 function AdminEmployeeConvertForm() {
 

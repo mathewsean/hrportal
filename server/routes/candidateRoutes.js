@@ -38,7 +38,7 @@ candidate_router.patch('/jobApply',verifyToken, jobApply)
 candidate_router.delete('/deleteEducation',verifyToken, deleteFromEducation)
 candidate_router.delete('/deleteWorkExperience',verifyToken, deleteFromWorkExperience)
 
-candidate_router.get('/getJobList', verifyToken ,findJobVacancyList)
+candidate_router.get('/getJobList', verifyToken ,findJobVacancyList) 
 candidate_router.get('/getJobDetails/:id', verifyToken, findJobDetails) 
 candidate_router.get('/JobAppliedStatus', verifyToken, findJobAppliedStatus)
 candidate_router.get('/candidateDetails',verifyToken, getCandidate)

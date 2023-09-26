@@ -1,6 +1,7 @@
 import Candidate from "../models/candidateModel.js";
 import Department from "../models/departmentModel.js";
 import Task from "../models/taskModel.js"
+import Attendance from "../models/attendanceModel.js"
 
 // To get list of employees for admin
 export const getEmployee = async (req, res) => {
@@ -19,8 +20,8 @@ export const getEmployee = async (req, res) => {
   }
 }
 
-//To create a department
 
+//To create a department
 export const createDepartment = async (req, res) => {
   try {
 
@@ -156,7 +157,7 @@ export const deactivateTask = async (req, res) => {
   }
 }
 
-export const getTaskList = async(req,res) => {
+export const getTaskList = async (req, res) => {
   try {
 
     const findTaskList = await Task.find().populate({
@@ -164,10 +165,10 @@ export const getTaskList = async(req,res) => {
       select: 'firstName lastName'
     })
 
-    if(findTaskList){
-      res.status(200).json({findTaskList})
+    if (findTaskList) {
+      res.status(200).json({ findTaskList })
     }
-    
+
   } catch (error) {
     return res.status(500).json({ error: error.message })
   }
@@ -196,8 +197,116 @@ export const convertCandidate = async (req, res) => {
     if (updateEmployee) {
       return res.status(200).json({ message: "Candidate converted to Employee Successfully" })
     }
-    
+
   } catch (error) {
     return res.status(500).json({ error: error.message })
+  }
+}
+
+
+export const monthlyAttendance = async (req, res) => {
+  try {
+
+    const { month, year } = req.body
+
+    const startDate = new Date(year, month, 1)
+    console.log(startDate);
+    const endDate = new Date(year, month + 1, 0)
+    console.log(endDate);
+
+    const lookUpCandidate = await Attendance.aggregate([
+      {
+        $lookup: {
+          from: 'candidates',
+          localField: 'employeeId',
+          foreignField: '_id',
+          as: 'candidateData'
+        }
+      },
+      {
+        $unwind: "$candidateData"
+      }
+
+    ])
+
+    console.log('lookUpCandidate', lookUpCandidate);
+
+    const findAttendance = await Attendance.aggregate([
+      {
+        $match: {
+          clockIn: {
+            $gte: startDate,
+            $lte: endDate
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          date: { $dateToString: { format: "%Y-%m-%d", date: "$clockIn" } },
+          employeeId: 1,
+          clockIn: 1,
+          clockOut: 1
+        }
+      },
+      {
+        $group: {
+          _id: {
+            employeeId: "$employeeId",
+            date: "$date"
+          },
+          clockIn: { $first: { $dateToString: { format: "%Y-%m-%d", date: "$clockIn" } } },
+          clockOut: { $first: { $dateToString: { format: "%Y-%m-%d", date: "$clockOut" } } }
+        }
+      },
+      {
+        $lookup: {
+          from: "candidates", 
+          localField: "_id.employeeId",
+          foreignField: "_id",
+          as: "candidateData"
+        }
+      },
+      {
+        $unwind: "$candidateData"
+      },
+      {
+        $project: {
+          _id: 0,
+          employeeId: "$_id.employeeId",
+          firstName: "$candidateData.firstName",
+          lastName: "$candidateData.lastName",
+          date: "$_id.date",
+          status: {
+            $cond: {
+              if: { $eq: ["$clockIn", "$clockOut"] },
+              then: "P",
+              else: "A" 
+            }
+          }
+        }
+      },
+      {
+        $group: {
+          _id: "$employeeId",
+          firstName: { $first: "$firstName" },
+          lastName: { $first: "$lastName" },
+          data: {
+            $push: {
+              date: "$date",
+              status: "$status"
+            }
+          }
+        }
+      }
+
+    ]);
+    
+    return res.status(200).json(findAttendance)
+
+  } catch (error) {
+
+    return res.status(500).json({ error: error.message })
+
   }
 }

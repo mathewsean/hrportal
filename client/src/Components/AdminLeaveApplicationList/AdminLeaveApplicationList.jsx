@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from '../../Services/axiosInterceptor';
+import axios from '../../Services/axiosInterceptorAdmin';
 import { format, parseISO } from 'date-fns'
 
 function AdminLeaveApplicationList() {

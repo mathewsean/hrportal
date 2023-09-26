@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import axios from '../../Services/axiosInterceptor'
+import axios from '../../Services/axiosInterceptorAdmin'
 
 const registerSchema = Yup.object().shape({
   firstName: Yup.string().min(2).max(20).required("Please enter your First Name"),

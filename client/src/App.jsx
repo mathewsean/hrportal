@@ -29,7 +29,8 @@ import AdminDepartmentPage from './Pages/AdminDepartmentPage/AdminDepartmentPage
 import AdminEmployeeConvertPage from './Pages/AdminEmployeeConvertPage/AdminEmployeeConvertPage'
 import AdminTaskPage from './Pages/AdminTaskPage/AdminTaskPage'
 import AdminTaskPost from './Pages/AdminTaskPost/AdminTaskPost'
-
+import EmployeeTaskListPage from './Pages/EmployeeTaskListPage/EmployeeTaskListPage'
+import AdminAttendancePage from './Pages/AdminAttendancePage/AdminAttendancePage'
 
 
 function App() {
@@ -38,13 +39,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-
-          {/* <Route element={<LoggedInUserRoute />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<RegisterCandidate />} />
-            <Route path="/verify_Otp" element={<VerifyOTP />} />
-          </Route> */}
+          
 
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -60,12 +55,13 @@ function App() {
 
             <Route path="/employee_leave_list" element={<EmployeeLeavePage />} />
             <Route path="/employee_leave_apply" element={<EmployeeLeavePostPage />} />
+            <Route path="/employee_task_list" element={<EmployeeTaskListPage />} />
           </Route>
 
 
           <Route path="/admin_login" element={<AdminLogin />} />
           <Route path='/admin_register' element={<AdminRegister />} />
-          <Route path='/admin_verify_otp/:emailId' element={<AdminVerifyOtp />} /> 
+          <Route path='/admin_verify_otp/:emailId' element={<AdminVerifyOtp />} />   
 
           <Route element={< PrivateRouteAdmin />}>
             <Route path='/admin_dashboard' element={<AdminDashboard />} />
@@ -77,8 +73,9 @@ function App() {
             <Route path='/admin_employee_list' element={<AdminEmployeeListPage />} />
             <Route path='/admin_department_list' element={<AdminDepartmentPage />} />
             <Route path='/admin_employee_convert/:candidateId/:jobId' element={<AdminEmployeeConvertPage />} />     
-            <Route path='/admin_task_list' element={ <AdminTaskPage />} />     
+            <Route path='/admin_task_list' element={ <AdminTaskPage />} />      
             <Route path='/admin_add_task_form' element={<AdminTaskPost />} />
+            <Route path='/admin_attendance_sheet' element={<AdminAttendancePage/>} />
 
           </Route>
           

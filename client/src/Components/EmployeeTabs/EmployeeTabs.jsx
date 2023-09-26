@@ -8,30 +8,34 @@ function EmployeeTabs() {
   const token = localStorage.getItem('token')
   const employeeId = jwtDecode(token).id
 
-  const [isLoading, setIsLoading] = useState(false)
   const [clockedIn, setClockedIn] = useState(false)
-  console.log("clockedIn", clockedIn);
-  const [viewClockIn, setViewClockIn] = useState(true)
-  console.log('viewClockIn', viewClockIn);
+  const [isLoading, setIsLoading] = useState(false)   
+  const [viewClockIn, setViewClockIn] = useState(true)  
   const [errorMessage, setErrorMessage] = useState('')
-  console.log('errorMesg', errorMessage);
-
-
 
   useEffect(() => {
 
     async function getClockInStatus() {
       try {
 
-        setIsLoading(false)
+        setIsLoading(true)
+        console.log("setIsLOadingTrue");
 
         const res = await axios.get(`/get_clokedIn_status/${employeeId}`)
 
+
+        console.log(res.data)
+
         if (res.status === 200) {
-          setClockedIn(res.data.message)
+          console.log("Res Status 200 Success");          
+          setClockedIn(res.data.message)                    
+        } else {
+          console.log("Res Status 200 Failed"); 
+
         }
 
-        setIsLoading(true)
+        setIsLoading(false)  
+        console.log("setIsLoadingFasle");            
 
       } catch (error) {
         console.log("useEffect", error.message);
@@ -40,10 +44,12 @@ function EmployeeTabs() {
 
     getClockInStatus()
 
-  }, [viewClockIn])
+  }, [viewClockIn, employeeId])
 
   const handleClockIn = async () => {
     try {
+
+      setIsLoading(true)
 
       const res = await axios.post(`/employee_clockIn/${employeeId}`)
       console.log("resHandleClockIn", res);
@@ -53,11 +59,22 @@ function EmployeeTabs() {
     } catch (error) {
       console.error(error.message);
       setErrorMessage(error.response.data.message)
+
+      setTimeout(() => {
+
+        setErrorMessage(null)
+
+      }, 3000)
+
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const handleClockOut = async () => {
     try {
+
+      setIsLoading(true)
 
       const res = await axios.patch(`/employee_clockOut/${employeeId}`)
 
@@ -65,6 +82,8 @@ function EmployeeTabs() {
 
     } catch (error) {
       console.log("handleClockOut", error.message);
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -73,34 +92,49 @@ function EmployeeTabs() {
 
       <div className='container mx-auto px-20 pt-10 grid grid-cols-4 gap-y-5'>
 
-        {clockedIn ?
-            <button
-              className='w-60 h-60 bg-cyan-300 rounded-2xl flex justify-center items-center'
-              onClick={handleClockOut}
-            >
-              <p className='text-black font-bold text-lg text-center'>
-                CLOCK OUT
+        {isLoading ? (
+          <button
+            className='w-60 h-60 bg-gray-400 rounded-2xl flex justify-center items-center'
+            disabled
+          >
+            <p className='text-black font-bold text-lg text-center'>Loading...</p>
+          </button>
+        ) : clockedIn ? (
+          <button
+            className='w-60 h-60 bg-cyan-300 rounded-2xl flex justify-center items-center'
+            onClick={handleClockOut}
+          >
+            <p className='text-black font-bold text-lg text-center'>
+              CLOCK OUT
+            </p>
+          </button>
+        ) : (
+          <button
+            className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'
+            onClick={handleClockIn}
+          >
+            <div className='flex flex-col'>
+              <p className='text-white font-bold text-lg text-center'>
+                CLOCK IN
               </p>
-            </button>
-            :
-            <button
-              className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'
-              onClick={handleClockIn}
-            >
-              <div className='flex flex-col'>
-                <p className='text-white font-bold text-lg text-center'>
-                  CLOCK IN
-                </p>
-                {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
-              </div>
-            </button>
-        }
+              {errorMessage && <span className='text-red-500'>{errorMessage}</span>}
+            </div>
+          </button>
+        )} 
 
 
         <Link to={`/employee_leave_list`}>
           <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
             <p className='text-white font-bold text-lg text-center'>
               Apply Leave
+            </p>
+          </button>
+        </Link>
+
+        <Link to={`/employee_task_list`}>
+          <button className='w-60 h-60 bg-sky-700 rounded-2xl flex justify-center items-center'>
+            <p className='text-white font-bold text-lg text-center'>
+              Task
             </p>
           </button>
         </Link>

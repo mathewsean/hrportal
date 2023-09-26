@@ -35,7 +35,8 @@ function DashboardCandidate() {
       <Navigation />
       {employeeStatus ? 
       <EmployeeTab />       
-      :       
+      :   
+      
       <JobCard />
       }
     </>

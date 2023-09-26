@@ -1,4 +1,4 @@
-import axios from '../../Services/axiosInterceptor';
+import axios from '../../Services/axiosInterceptorAdmin';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import {format, parseISO} from 'date-fns'

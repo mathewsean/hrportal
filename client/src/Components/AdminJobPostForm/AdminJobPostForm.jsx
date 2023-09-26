@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from '../../Services/axiosInterceptor'
+import axios from '../../Services/axiosInterceptorAdmin'
 import { Navigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 

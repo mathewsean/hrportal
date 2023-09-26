@@ -1,4 +1,4 @@
-import axios from '../../Services/axiosInterceptor'
+import axios from '../../Services/axiosInterceptorAdmin'
 import React, { useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 

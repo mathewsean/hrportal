@@ -14,6 +14,7 @@ const Navigation = () => {
   useEffect(() => {
     if (token) {
       const candidateId = jwt_decode(token)
+      
       async function getUserData() {
         try {
           const userData = await axios.get(`/getCandidateName?candidateId=${candidateId.id}`)

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Navigate, Link } from 'react-router-dom'
-import axios from '../../Services/axiosInterceptor'
+import axios from '../../Services/axiosInterceptorAdmin'
 
 function AdminLoginForm() {
 
